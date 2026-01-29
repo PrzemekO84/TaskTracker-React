@@ -118,6 +118,7 @@ body{
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -136,11 +137,15 @@ body{
 }
 
 @utility nameTaskInfo {
-  @apply border-2 border-stone-950 bg-purple-950 rounded-2xl font-bold px-4 py-3 text-xl shadow-lg/10 shadow-white
+  @apply border-2 border-stone-950 bg-purple-950 rounded-2xl font-bold px-4 py-3 text-xl shadow-lg/10 shadow-white text-center
 }
 
 @utility buttonHighLight{
   @apply transition duration-300 ease-in-out hover:scale-110
+}
+
+@utility chartDiv {
+  @apply rounded-2xl border-4 bg-stone-950 border-stone-800 border-2 text-white p-3 h-full
 }
 
 /*  */

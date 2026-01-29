@@ -21,12 +21,13 @@ import {
 export const description = "A bar chart"
 
 const chartData = [
-  { month: "January", desktop: 186 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 73 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 214 },
+  { month: "January", desktop: 13 },
+  { month: "February", desktop: 3 },
+  { month: "March", desktop: 20 },
+  { month: "April", desktop: 23 },
+  { month: "May", desktop: 15 },
+  { month: "June", desktop: 4 },
+  { month: "July", desktop: 34 }
 ]
 
 const chartConfig = {
@@ -38,7 +39,7 @@ const chartConfig = {
 
 export function ChartBarDefault() {
   return (
-    <Card className="bg-stone-900 border-stone-800 border-2 text-white">
+    <Card className="bg-stone-950 border-stone-800 border-4 text-white">
       <CardHeader>
         <CardTitle>Tasks Chart</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
@@ -64,7 +65,7 @@ export function ChartBarDefault() {
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="leading-none">
-          Showing total amount of tasks done per month
+          Showing total amount of tasks done per month in current year
         </div>
       </CardFooter>
     </Card>
