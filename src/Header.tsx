@@ -8,33 +8,33 @@ import { CircleGauge } from "lucide-react";
 
 //Mozna by dodac hamburger jesli zmniejszy sie jeszcze bardziej
 //Zmiana ikony przy dark/light mode
-//Trzeba cos wymyslic z home/task/settings bo nie sa wycentrowane idealnie przez duzy prawy div ale to po dark mode zeby lepiej to dostosowac
+// Chyba done - Trzeba cos wymyslic z home/task/settings bo nie sa wycentrowane idealnie przez duzy prawy div ale to po dark mode zeby lepiej to dostosowac
 
 function Header() {
   return (
     <div className="border-b-2 border-stone-900 pb-6 shadow-md shadow-violet-300/20 bg-stone-900">
       <div className="flex justify-between mt-5 mx-3 h-auto ">
-        <div>
+        <div className="flex gap-8 justify-center items-center">
           <Link to="/" className="flex gap-3 justify-center items-center">
             <h1 className="text-4xl font-semibold text-purple-800 text-shadow-md/20 text-shadow-white">
               Voyager
             </h1>
-            <CircleGauge className="mt-3"/>
+            <CircleGauge className="mt-3" />
           </Link>
-        </div>
-        <div className="flex gap-5 justify-center items-center text-xl lg:text-2xl 2xl:text-3xl">
-          <Link className=" p-2 rounded-xl linkHighlight " to="/">
-            Home
-          </Link>
-          <Link className=" p-2 rounded-xl linkHighlight" to="/Tasks">
-            Tasks
-          </Link>
-          <Link className=" p-2 rounded-xl linkHighlight" to="Settings">
-            Settings
-          </Link>
+          <div className="flex gap-5 justify-center mt-1 items-center text-xl lg:text-2xl 2xl:text-3xl">
+            <Link className=" p-2 rounded-xl linkHighlight " to="/">
+              Home
+            </Link>
+            <Link className=" p-2 rounded-xl linkHighlight" to="/Tasks">
+              Tasks
+            </Link>
+            <Link className=" p-2 rounded-xl linkHighlight" to="Settings">
+              Settings
+            </Link>
+          </div>
         </div>
 
-        <div className="flex gap-4 justify-center items-center mr-1 text-xl">
+        <div className="flex gap-4 justify-center items-center mr-1 text-xl mt-1">
           <div className="border-2 border-purple-900 p-2 rounded-xl linkHighlight">
             <button>Sign Up</button>
           </div>
@@ -42,9 +42,9 @@ function Header() {
             <button>Sign In</button>
           </div>
           <div className="flex gap-2 justify-center items-center">
-            <Switch className="border border-whites"/>
+            <Switch className="border border-whites" />
             <Moon />
-            <Sun />
+            {/* <Sun /> */}
           </div>
         </div>
       </div>

@@ -39,7 +39,7 @@ const chartConfig = {
 
 export function ChartBarDefault() {
   return (
-    <Card className="bg-stone-950 border-stone-800 border-4 text-white">
+    <Card className="bg-stone-950 border-stone-800 border-4 divBorderHover text-white">
       <CardHeader>
         <CardTitle>Tasks Chart</CardTitle>
         <CardDescription>January - June 2024</CardDescription>

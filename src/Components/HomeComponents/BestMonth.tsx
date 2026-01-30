@@ -3,7 +3,7 @@ import { Crown, Handshake, Rocket } from "lucide-react";
 
 function BestMonth(){
     return (
-        <div className="h-full flex flex-col gap-4 items-center justify-center chartDiv text-3xl text-center">
+        <div className="h-full flex flex-col gap-4 items-center justify-center chartDiv text-3xl text-center divBorderHover">
             <p>Best Month:</p>
             <div className="flex gap-2 items-center">
                 <p className="font-extrabold text-purple-800 text-4xl">January</p>
