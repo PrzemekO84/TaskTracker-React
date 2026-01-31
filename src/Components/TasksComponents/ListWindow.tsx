@@ -1,26 +1,29 @@
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuCheckboxItem,
-} from "@/Components/ui/dropdown-menu";
-import { Button } from "@/Components/ui/button";
-import { useState } from "react";
+
+import { useContext, useState } from "react";
 import type { Priority } from "@/Types/types";
-import {
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-} from "@/Components/ui/dropdown-menu";
+import { Button } from "@/Components/ui/button";
+import { Input } from "../ui/input";
 import DatePicker from "../ui/DatePicker";
+import DropDownMenuList from "../ui/DropDownMenuList";
+import { useListTaskContext } from "@/context/ListTaskContext";
+import TimePicker from "../ui/TimePicker";
+
+
 
 function CreateListWindow({ onClose }: { onClose: () => void }) {
-  const [selectedPriority, setSelectedPriority] = useState<Priority | null>(null);
-  const [deadline, setDeadline] = useState<Date | undefined>()
+  const [listName, setListName] = useState<string>("");
+  const [selectedPriority, setSelectedPriority] = useState<Priority>("");
+  const [dayDeadline, setDayDeadline] = useState<Date>()
+  const [timeDeadline, setTimeDeadline] = useState<Date>()
   const createdDate = new Date().toDateString();
+  const { info, addItem } = useListTaskContext();
 
   function handleSelectPriority(priority: Priority) {
     setSelectedPriority(priority);
   }
+
+  console.log(info);
+
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -33,50 +36,31 @@ function CreateListWindow({ onClose }: { onClose: () => void }) {
             </h2>
 
             <input
+              value={listName}
+              onChange={(event) => {
+                setListName(event.target.value);
+              }}
               required
               type="text"
               placeholder="List name"
               className="w-full p-2 rounded bg-stone-800 text-center border border-stone-500"
             />
 
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button className="w-full bg-stone-800 hover:bg-stone-950 p-5 border border-stone-500 rounded">
-                  {selectedPriority
-                    ? "Priority: " +
-                      selectedPriority.charAt(0).toUpperCase() +
-                      selectedPriority?.slice(1)
-                    : "Select priority"}
-                </Button>
-              </DropdownMenuTrigger>
-
-              <DropdownMenuContent className="w-full">
-                <DropdownMenuRadioGroup
-                  value={selectedPriority ?? ""}
-                  onValueChange={(value) => {
-                    handleSelectPriority(value as Priority);
-                  }}
-                >
-                  <DropdownMenuRadioItem className="variant" value="critical">
-                    Critical
-                  </DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="high">
-                    High
-                  </DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="medium">
-                    Medium
-                  </DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="low">Low</DropdownMenuRadioItem>
-                </DropdownMenuRadioGroup>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <DropDownMenuList
+              selectedPriority={selectedPriority}
+              handleSelectPriority={handleSelectPriority}
+            />
 
             <div>
-              <DatePicker value={deadline} onChange={(value) => {
-                setDeadline(value)
-              }}>
-              </DatePicker>
+              <DatePicker
+                value={dayDeadline}
+                onChange={(value) => {
+                  setDayDeadline(value);
+                }}
+              ></DatePicker>
             </div>
+
+            <TimePicker value={timeDeadline} onChange={setTimeDeadline} />
 
             {/* ACTIONS */}
             <div className="flex justify-end gap-3">
@@ -87,6 +71,18 @@ function CreateListWindow({ onClose }: { onClose: () => void }) {
                 Cancel
               </button>
               <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  addItem({
+                    id: crypto.randomUUID(),
+                    name: listName,
+                    priority: selectedPriority,
+                    created: createdDate,
+                    until: dayDeadline?.toDateString(),
+                    time: timeDeadline?.toDateString(),
+                  });
+                  onClose();
+                }}
                 type={"submit"}
                 className="px-4 py-2 rounded bg-purple-700"
               >

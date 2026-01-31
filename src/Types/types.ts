@@ -1,10 +1,11 @@
 
 export type ListTask = {
+    id: string,
     name: string,
     priority: Priority
-    created: string | Date,
-    until?: string | Date
-    //Moglby byc tez time?
+    created: string,
+    until?: string,
+    time?: string
 };
 
-export type Priority = "Critical" | "High" | "Medium" | "Low";
+export type Priority = "Critical" | "High" | "Medium" | "Low" | "";
