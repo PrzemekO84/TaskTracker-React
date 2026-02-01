@@ -11,7 +11,7 @@ type PropsElements = {
 };
 
 function NewTaskWindow({ onClose, listId }: PropsElements) {
-  const { addTaskItem} = useListTaskContext();
+  const { addTaskItem } = useListTaskContext();
   const [taskName, setTaskName] = useState<string>("");
   const [selectedPriority, setSelectedPriority] = useState<Priority>("");
   const [dayDeadline, setDayDeadline] = useState<Date | undefined>(undefined);

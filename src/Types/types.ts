@@ -18,4 +18,14 @@ export type List = {
   tasks: Task[]; 
 };
 
+export type RenderedTask = {
+  id: number;
+  name: string;
+  priority: Priority;
+  created: string;
+  until: string;
+  time: string;
+  completed: boolean;
+}
+
 export type Priority = "Critical" | "High" | "Medium" | "Low" | "";
