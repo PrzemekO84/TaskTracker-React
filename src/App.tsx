@@ -10,6 +10,7 @@ import NotFound from './pages/NotFound';
 import Home from './pages/Home';
 import Tasks from './pages/Tasks';
 import Settings from './pages/Settings';
+import DirectTasks from './pages/DirectTasks';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/Tasks" element={<Tasks />} />
               <Route path="/Settings" element={<Settings />} />
+              <Route path='/DirectTasks/:listId' element={<DirectTasks />} />
               <Route path="*" element={<NotFound />}>
                 {" "}
               </Route>

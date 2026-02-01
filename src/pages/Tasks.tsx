@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import type { ListTask } from "@/Types/types";
-import CreateListWindow from "@/Components/TasksComponents/ListWindow";
+import CreateListWindow from "@/Components/TasksComponents/CreateList";
 import { useListTaskContext } from "@/context/ListTaskContext";
 import ListName from "@/Components/TasksComponents/ListName";
 import ListBox from "@/Components/TasksComponents/ListBox";
 
 function Tasks(){
     const [createListWindow, setCreateListWindow] = useState(false);
-    const { info } = useListTaskContext();
+    const { listInfo } = useListTaskContext();
 
     function handleCreateWindow(){
         setCreateListWindow(!createListWindow);
@@ -28,7 +27,7 @@ function Tasks(){
           window.removeEventListener("keydown", closeListWindow);
         };
       }
-    });
+    }, [createListWindow]);
 
     return (
       <div className="border-2 border-red-500 w-screen m-5 flex gap-7">
@@ -42,14 +41,17 @@ function Tasks(){
             </button>
           </div>
           <div className="border-2 border-yellow-400 h-full flex flex-col items-center gap-3">
-            {info.map((list) => {
+            {listInfo.map((list) => {
               return <ListName title={list.name}/>
             })}
           </div>
         </div>
         <div className="border-2 border-green-500 w-[70%] grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-5 auto-rows-[350px]">
-          {info.map((list) => {
-            return <ListBox name={list.name} priority={list.priority} created={list.created} until={list.until} time={list.time}/>
+          {listInfo.map((list) => {
+            return <Link key={list.id} to={`/DirectTasks/${list.id}`}> 
+            <ListBox name={list.name} priority={list.priority} created={list.created} until={list.until} time={list.time}/> 
+            </Link>
+            
           })}
           <div className=" border-2"></div>
           <div className=" border-2"></div>

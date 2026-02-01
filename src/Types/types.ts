@@ -1,11 +1,21 @@
+export type Task = {
+  id: string;
+  name: string;
+  priority: Priority;
+  created: string;
+  until: string;
+  time: string;
+  completed: boolean;
+};
 
-export type ListTask = {
-    id: string,
-    name: string,
-    priority: Priority
-    created: string,
-    until?: string,
-    time?: string
+export type List = {
+  id: string;
+  name: string;
+  priority: Priority; 
+  created: string;
+  until: string;
+  time: string;
+  tasks: Task[]; 
 };
 
 export type Priority = "Critical" | "High" | "Medium" | "Low" | "";
