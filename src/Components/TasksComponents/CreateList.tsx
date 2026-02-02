@@ -9,7 +9,7 @@ import TimePicker from "../ui/TimePicker";
 
 function CreateListWindow({ onClose }: { onClose: () => void }) {
   const [listName, setListName] = useState<string>("");
-  const [selectedPriority, setSelectedPriority] = useState<Priority>("");
+  const [selectedPriority, setSelectedPriority] = useState<Priority>("Low");
   const [dayDeadline, setDayDeadline] = useState<Date | undefined>(undefined);
   const [timeDeadline, setTimeDeadline] = useState<Date | undefined>(undefined);
   const createdDate = new Date().toDateString();
@@ -37,6 +37,12 @@ function CreateListWindow({ onClose }: { onClose: () => void }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/50" onClick={onClose}></div>
       <form
+        onKeyDown={(e) =>{
+          if(e.key === "Enter"){
+            e.preventDefault();
+            e.currentTarget.requestSubmit();
+          }
+        }}
         onSubmit={(e) => {
           e.preventDefault();
           addListItem({
@@ -46,7 +52,7 @@ function CreateListWindow({ onClose }: { onClose: () => void }) {
             created: createdDate,
             until: finalDay(),
             time: finalTime(),
-            tasks: []
+            tasks: [],
           });
           onClose();
         }}
@@ -88,6 +94,7 @@ function CreateListWindow({ onClose }: { onClose: () => void }) {
 
             <div className="flex justify-end gap-3">
               <button
+                type={"button"}
                 onClick={onClose}
                 className="px-4 py-2 rounded bg-stone-700"
               >

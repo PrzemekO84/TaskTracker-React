@@ -20,12 +20,14 @@ export type List = {
 
 export type RenderedTask = {
   id: number;
+  taskId: string;
   name: string;
   priority: Priority;
   created: string;
   until: string;
   time: string;
   completed: boolean;
+  listId: string;
 }
 
-export type Priority = "Critical" | "High" | "Medium" | "Low" | "";
+export type Priority = "Critical" | "High" | "Medium" | "Low";

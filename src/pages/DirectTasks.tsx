@@ -2,7 +2,7 @@ import { useListTaskContext } from "@/context/ListTaskContext";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import NotFound from "./NotFound";
-import NewTaskWindow from "@/Components/DirectTasksComponents.tsx/NewTaskWindow";
+import TaskWindow from "@/Components/DirectTasksComponents.tsx/TaksWindow";
 import SingleTask from "@/Components/DirectTasksComponents.tsx/SingleTask";
 
 function DirectTasks() {
@@ -10,7 +10,7 @@ function DirectTasks() {
     const { listInfo } = useListTaskContext();
     const [newTaskWindow, setNewTaskWindow] = useState(false);
 
-    const handleSetNewTaskWindow = () => setNewTaskWindow(!newTaskWindow)
+    const handleNewTaskWindow = () => setNewTaskWindow(!newTaskWindow)
 
     const currentList = listInfo.find((list) => {
         return list.id === listId;
@@ -24,7 +24,7 @@ function DirectTasks() {
       if (newTaskWindow === true) {
         const closeListWindow = (event: KeyboardEvent) => {
           if (event.key === "Escape") {
-            handleSetNewTaskWindow();
+            handleNewTaskWindow();
           }
         };
 
@@ -36,16 +36,14 @@ function DirectTasks() {
       }
     }, [newTaskWindow]);
 
-    console.log(listInfo);
-
     return (
-      <div className="flex flex-col border-2 border-red-500 w-screen">
-        <h1 className="text-center text-4xl border-3 rounded-md border-stone-600 p-5">
-          Hello {currentList.name}
+      <div className="flex flex-col w-screen mb-20">
+        <h1 className="text-center text-4xl border-3 rounded-md border-purple-900 mt-5 p-5">
+          {currentList.name}
         </h1>
         <div className="flex gap-4 justify-center mt-5 xl:gap-8">
           <button
-            onClick={handleSetNewTaskWindow}
+            onClick={handleNewTaskWindow}
             className="p-4 text-xl xl:text-2xl button buttonHighLight"
           >
             Add Task
@@ -57,7 +55,7 @@ function DirectTasks() {
             Delete List
           </button>
         </div>
-        <div>
+        <div className="flex flex-col gap-10">
           {listInfo.map((list) => {
             if (list.id === listId) {
               return list.tasks.map((task, index) => {
@@ -65,12 +63,14 @@ function DirectTasks() {
                   <SingleTask
                     key={task.id}
                     id={index + 1}
+                    taskId={task.id}
                     name={task.name}
                     priority={task.priority}
                     created={task.created}
                     until={task.until}
                     time={task.time}
                     completed={task.completed}
+                    listId={listId}
                   />
                 );
               });
@@ -79,7 +79,7 @@ function DirectTasks() {
         </div>
 
         {newTaskWindow && (
-          <NewTaskWindow onClose={handleSetNewTaskWindow} listId={listId!} />
+          <TaskWindow onClose={handleNewTaskWindow} listId={listId!} type={"new"}/>
         )}
       </div>
     );
