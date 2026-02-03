@@ -6,13 +6,14 @@ import DatePicker from "../ui/DatePicker";
 import DropDownMenuList from "../ui/DropDownMenuList";
 import { useListTaskContext } from "@/context/ListTaskContext";
 import TimePicker from "../ui/TimePicker";
+import { createdDateFormat } from "@/utils/HelpFun";
 
 function CreateListWindow({ onClose }: { onClose: () => void }) {
   const [listName, setListName] = useState<string>("");
   const [selectedPriority, setSelectedPriority] = useState<Priority>("Low");
   const [dayDeadline, setDayDeadline] = useState<Date | undefined>(undefined);
   const [timeDeadline, setTimeDeadline] = useState<Date | undefined>(undefined);
-  const createdDate = new Date().toDateString();
+  const createdDate = createdDateFormat();
   const { addListItem } = useListTaskContext();
 
   function handleSelectPriority(priority: Priority) {

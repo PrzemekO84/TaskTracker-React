@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import NotFound from "./NotFound";
 import TaskWindow from "@/Components/DirectTasksComponents.tsx/TaksWindow";
 import SingleTask from "@/Components/DirectTasksComponents.tsx/SingleTask";
+import { toUpperCase } from "@/utils/HelpFun";
 
 function DirectTasks() {
     const { listId } = useParams<{listId : string}>();
@@ -38,8 +39,8 @@ function DirectTasks() {
 
     return (
       <div className="flex flex-col w-screen mb-20">
-        <h1 className="text-center text-4xl border-3 rounded-md border-purple-900 mt-5 p-5">
-          {currentList.name}
+        <h1 className="text-center text-5xl bg-stone-900 border-3 rounded-md border-purple-900 mt-5 p-5">
+          {toUpperCase(currentList.name)}
         </h1>
         <div className="flex gap-4 justify-center mt-5 xl:gap-8">
           <button
@@ -48,14 +49,14 @@ function DirectTasks() {
           >
             Add Task
           </button>
-          <button className="p-4 text-xl xl:text-2xl button buttonHighLight">
+          <button className="p-4 text-xl xl:text-2xl button buttonHighLight bg-sky-700">
             Edit List
           </button>
-          <button className="p-4 text-xl xl:text-2xl button buttonHighLight">
+          <button className="p-4 text-xl xl:text-2xl button buttonHighLight bg-red-900">
             Delete List
           </button>
         </div>
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-col ">
           {listInfo.map((list) => {
             if (list.id === listId) {
               return list.tasks.map((task, index) => {

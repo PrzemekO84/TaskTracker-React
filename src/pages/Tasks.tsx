@@ -53,10 +53,6 @@ function Tasks(){
             </Link>
             
           })}
-          <div className=" border-2"></div>
-          <div className=" border-2"></div>
-          <div className=" border-2"></div>
-          <div className=" border-2"></div>
         </div>
 
         {createListWindow && (

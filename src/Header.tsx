@@ -16,7 +16,7 @@ function Header() {
       <div className="flex justify-between mt-5 mx-3 h-auto ">
         <div className="flex gap-8 justify-center items-center">
           <Link to="/" className="flex gap-3 justify-center items-center">
-            <h1 className="text-4xl font-semibold text-purple-800 text-shadow-md/20 text-shadow-white">
+            <h1 className="text-4xl font-semibold text-purple-800 text-shadow-md/10 text-shadow-white">
               Voyager
             </h1>
             <CircleGauge className="mt-3" />

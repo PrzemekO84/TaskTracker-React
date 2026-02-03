@@ -1,4 +1,5 @@
 import type { Priority } from "@/Types/types";
+import { toUpperCase } from "@/utils/HelpFun";
 
 type PropsElements = {
   name: string;
@@ -10,11 +11,13 @@ type PropsElements = {
 
 function ListBox({name, priority, created, until, time} : PropsElements){
     return (
-        <div className="flex flex-col justify-between items-center px-2 py-2 text-2xl border-2 border-purple-800 text-center cursor-pointer">
-            <p>Name: {name}</p>
+        <div className="flex flex-col gap-5 justify-between bg-stone-900
+        border-2 border-purple-800 text-xl rounded-lg p-4 items-center border-purple-800 text-center cursor-pointer">
+            <p className="text-3xl border-2 w-full p-2 rounded-xl border-purple-900 bg-stone-950">{toUpperCase(name)}</p>
             <p>Priority: {priority}</p>
-            <p>Until: {until}</p>
-            <p>Time: {time}</p>
+            <p>Number of tasks: </p>
+            <p>Day deadline: {until}</p>
+            <p>Time deadline: {time}</p>
             <p>Created: {created}</p>
         </div>
     )

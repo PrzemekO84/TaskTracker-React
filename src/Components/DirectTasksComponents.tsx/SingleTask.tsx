@@ -5,7 +5,9 @@ import { useListTaskContext } from "@/context/ListTaskContext";
 import TaskWindow from "./TaksWindow";
 import { useState } from "react";
 import { Check } from "lucide-react";
-import { styled } from "@mui/material/styles";
+import { priorityColor } from "@/utils/HelpFun";
+import { createdDateFormat } from "@/utils/HelpFun";
+
 
 function SingleTask({
   id,
@@ -33,13 +35,11 @@ function SingleTask({
     isDone(!done)
   }
 
-
-
   const initialTaskInfo: Task = {
     id: taskId,
     name: name,
     priority: priority,
-    created: created,
+    created: createdDateFormat(),
     until: until,
     time: time,
     completed: completed,
@@ -55,8 +55,8 @@ function SingleTask({
         {id}
       </h1>
       <h1>{name}</h1>
-      <h1>Priority: {priority}</h1>
-      <h1>Created: {created}</h1>
+      <h1 className={`${priorityColor(priority)}`}>Priority: {priority}</h1>
+      <h1>Created: {createdDateFormat()}</h1>
       <h1>Day Deadline: {until}</h1>
       <h1>Time Deadline: {time}</h1>
       <div className="flex gap-3 items-center justify-center mr-2">
@@ -65,7 +65,7 @@ function SingleTask({
             handleEditTaskWindow();
             //editTaskItem();
           }}
-          className="flex gap-2 items-center border-1 border-sky-500 bg-sky-400 p-1 rounded-md text-black font-semibold cursor-pointer buttonHighLight"
+          className="flex gap-2 items-center border-1 border-sky-500 bg-sky-700 p-1 rounded-md font-semibold cursor-pointer buttonHighLight"
         >
           <button>Edit </button>
           <Pencil size={18} />
@@ -74,7 +74,7 @@ function SingleTask({
           onClick={() => {
             deleteTaskItem(listId, taskId);
           }}
-          className="flex gap-2 items-center border-1 border-red-500 bg-red-600 p-1 rounded-md text-black font-semibold cursor-pointer buttonHighLight"
+          className="flex gap-2 items-center border-1 border-red-500 bg-red-900 p-1 rounded-md font-semibold cursor-pointer buttonHighLight"
         >
           <button>Delete </button>
           <Trash size={18} />
@@ -92,7 +92,7 @@ function SingleTask({
               deleteTaskItem(listId, taskId);
             }
           }}
-          className="flex gap-2 items-center border-1 border-green-500 bg-green-600 p-1 rounded-md text-black font-semibold cursor-pointer buttonHighLight"
+          className="flex gap-2 items-center border-1 border-green-500 bg-green-800 p-1 rounded-md font-semibold cursor-pointer buttonHighLight"
             
         >
           <button>Done </button>
