@@ -1,5 +1,6 @@
-import type { List, Task } from "@/Types/types";
+import type { List, Task, MonthlyCounter } from "@/Types/types";
 import { createContext, useContext, useState } from "react";
+import type { TasksCounter } from "@/Types/types";
 
 type ListTaskContextType = {
     listInfo: List[],
@@ -9,6 +10,12 @@ type ListTaskContextType = {
     addTaskItem: (listId: string, newTask: Task) => void,
     editTaskItem: (listId: string, taskId: string, newTask: Task) => void
     deleteTaskItem: (listId: string, taskId: string) => void
+    getTotalTasksLength: () => number;
+    getTasksLengthByPriority: () => TasksCounter;
+    setDailyCounter: () => void;
+    dailyCount: number;
+    setMonthlyCounter: () => void;
+    monthlyCount: {[key: string]: number};
 };
 
 
@@ -16,6 +23,53 @@ export const ListTaskContext = createContext<ListTaskContextType | undefined>(un
 
 export const ListTaskProvider = ({ children } : {children: React.ReactNode}) => {
     const [listInfo, setListInfo] = useState<List[]>([]);
+
+    const [dailyCount, setDailyCount] = useState(() => {
+        const saved = localStorage.getItem("dailyCounter");
+
+        if(saved){
+            const { count, date } = JSON.parse(saved);
+            if(date === new Date().toDateString()) return count;
+        }
+        return 0;
+    })
+
+    function setDailyCounter(){
+        setDailyCount((prevCount: number) => {
+            const newCount = prevCount + 1;
+            localStorage.setItem("dailyCounter", JSON.stringify({
+                count: newCount,
+                date: new Date().toDateString()
+            }))
+            return newCount;
+        })
+    }
+
+
+    const [monthlyCount, setMontlyCount] = useState<{[key: string]: number}>(() => {
+        const saved = localStorage.getItem("montlyCounter");
+
+        return saved ? JSON.parse(saved) : {}
+    })
+
+    function setMonthlyCounter(){
+        const date = new Date();
+        const monthKey = `${date.getMonth() + 1}-${date.getFullYear()}`
+
+        const currentMonth = { ...monthlyCount };
+
+        if(currentMonth[monthKey]){
+            currentMonth[monthKey] = currentMonth[monthKey] + 1;
+        }
+        else{
+            currentMonth[monthKey] = 1;
+        }
+
+        setMontlyCount(currentMonth);
+        localStorage.setItem("montlyCounter", JSON.stringify(currentMonth));
+    }
+
+    
 
     function addListItem(item: List){
         setListInfo((prevInfo) => {
@@ -94,8 +148,46 @@ export const ListTaskProvider = ({ children } : {children: React.ReactNode}) => 
       });
     }
 
+    function getTotalTasksLength(){
+        let counter: number = 0;
+        listInfo.forEach(list => {
+            console.log(list.tasks.length);
+            counter += list.tasks.length;
+        });
+
+        return counter;
+    }
+
+    function getTasksLengthByPriority() {
+      let tasks: TasksCounter = {
+        criticalTasks: 0,
+        highTasks: 0,
+        mediumTasks: 0,
+        lowTasks: 0,
+      };
+
+      listInfo.forEach((list) => {
+        list.tasks.forEach((task) => {
+          switch (task.priority) {
+            case "Critical":
+              return tasks.criticalTasks++;
+            case "High":
+              return tasks.highTasks++;
+            case "Medium":
+              return tasks.mediumTasks++;
+            case "Low":
+              return tasks.lowTasks++;
+          }
+        });
+      });
+
+      return tasks;
+    }
+
     return (
-        <ListTaskContext.Provider value={{listInfo, addListItem, editListItem, deleteListItem, addTaskItem, editTaskItem, deleteTaskItem}}>
+        <ListTaskContext.Provider value={{listInfo, addListItem, editListItem, deleteListItem, addTaskItem, editTaskItem, 
+        deleteTaskItem, getTotalTasksLength, setMonthlyCounter,
+        getTasksLengthByPriority, setDailyCounter, dailyCount, monthlyCount}}>
             {children}
         </ListTaskContext.Provider>
     )

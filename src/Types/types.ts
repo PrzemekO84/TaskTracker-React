@@ -31,3 +31,19 @@ export type RenderedTask = {
 }
 
 export type Priority = "Critical" | "High" | "Medium" | "Low";
+
+
+export type TasksCounter = {
+  criticalTasks: number;
+  highTasks: number;
+  mediumTasks: number;
+  lowTasks: number;
+}
+
+export type MonthlyCounter = {
+  month: string;
+  count: number;
+}
+
+
+

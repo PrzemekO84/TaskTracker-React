@@ -11,7 +11,7 @@ interface ProgressProps
 function Progress({
   className,
   value = 0,
-  max = 10,
+  max = 5,
   ...props
 }: ProgressProps) {
   const percentage = Math.min(Math.max((value / max) * 100, 0), 100)
