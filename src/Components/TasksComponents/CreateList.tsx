@@ -104,7 +104,7 @@ function CreateListWindow({onClose, type, initialData} : PropsElements) {
                 setListName(event.target.value);
               }}
               required={true}
-              maxLength={40}
+              maxLength={25}
               type="text"
               placeholder="List name"
               className="w-full p-2 rounded bg-stone-800 text-center border border-stone-500"
