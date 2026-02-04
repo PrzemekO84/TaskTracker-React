@@ -5,6 +5,8 @@ import { useListTaskContext } from "@/context/ListTaskContext";
 import ListName from "@/Components/TasksComponents/ListName";
 import ListBox from "@/Components/TasksComponents/ListBox";
 import { ChevronDown } from "lucide-react";
+import DropdownHover from "@/Components/ui/SortByHover";
+
 
 function Tasks(){
     const [createListWindow, setCreateListWindow] = useState(false);
@@ -41,7 +43,9 @@ function Tasks(){
               Create New List
             </button>
             <div>
-              <button className="text-xl lg:text-2xl border-stone-600 border-2 p-3 rounded-md flex items-center gap-2">Sort Lists <ChevronDown className="mt-1" /></button>
+              <button className="text-xl lg:text-2xl border-stone-600 border-2 p-3 rounded-md flex items-center gap-2">
+                <DropdownHover />
+              </button>
             </div>
           </div>
           <div className="h-full flex flex-col items-center gap-4">

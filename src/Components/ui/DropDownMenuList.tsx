@@ -38,12 +38,12 @@ function DropDownMenuList({selectedPriority, handleSelectPriority} : PropsElemen
               handleSelectPriority(value as Priority);
             }}
           >
-            <DropdownMenuRadioItem className="variant" value="Critical">
+            <DropdownMenuRadioItem className="text-white hover:bg-stone-800"value="Critical">
               Critical
             </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="High">High</DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="Medium">Medium</DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="Low">Low</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem className="text-white hover:bg-stone-800"value="High">High</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem className="text-white hover:bg-stone-800"value="Medium">Medium</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem className="text-white hover:bg-stone-800"value="Low">Low</DropdownMenuRadioItem>
           </DropdownMenuRadioGroup>
         </DropdownMenuContent>
       </DropdownMenu>
