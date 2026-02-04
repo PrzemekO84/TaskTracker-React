@@ -26,32 +26,28 @@ function BestMonth(){
   }
 
   const bestMonthValue = useMemo(() => {
-    return bestMonth(); // zakładam, że ta funkcja zwraca jakąś wartość
+    return bestMonth();
   }, [monthlyCount]);
 
   const { monthTaskNumber, month } = bestMonthValue;
 
   return (
-    <>
-      {parseInt(monthTaskNumber) > 0 && (
-        <div className="h-full flex flex-col gap-4 items-center justify-center chartDiv text-3xl text-center divBorderHover">
-          <p>Best Month:</p>
-          <div className="flex gap-2 items-center">
-            <p className="font-extrabold text-purple-800 text-4xl">{month}</p>
-            <Crown className="mt-1 text-yellow-400" />
-          </div>
-          <p>Number of completed tasks:</p>
-          <div className="flex gap-2 items-center">
-            <p className="font-extrabold text-purple-800 text-4xl">{monthTaskNumber}</p>
-            <Rocket className="mt-1 text-yellow-400" />
-          </div>
-          <div className="flex gap-2 items-center">
-            <p>Congrats </p>
-            <Handshake className="mt-2 text-yellow-400" />
-          </div>
-        </div>
-      )}
-    </>
+    <div className="h-full flex flex-col gap-4 items-center justify-center chartDiv text-3xl text-center divBorderHover">
+      <p>Best Month:</p>
+      <div className="flex gap-2 items-center">
+        <p className="font-extrabold text-purple-800 text-4xl">{month}</p>
+        <Crown className="mt-1 text-yellow-400" />
+      </div>
+      <p>Number of completed tasks:</p>
+      <div className="flex gap-2 items-center">
+        <p className="font-extrabold text-purple-800 text-4xl">{monthTaskNumber}</p>
+        <Rocket className="mt-1 text-yellow-400" />
+      </div>
+      <div className="flex gap-2 items-center">
+        <p>Congrats </p>
+        <Handshake className="mt-2 text-yellow-400" />
+      </div>
+    </div>
   );
 }
 

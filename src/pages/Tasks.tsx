@@ -56,7 +56,7 @@ function Tasks(){
         </div>
 
         {createListWindow && (
-          <CreateListWindow onClose={handleCreateWindow} />
+          <CreateListWindow onClose={handleCreateWindow} type="new"/>
         )}
       </div>
     );

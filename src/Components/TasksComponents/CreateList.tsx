@@ -1,36 +1,77 @@
-import { useContext, useState } from "react";
-import type { Priority } from "@/Types/types";
-import { Button } from "@/Components/ui/button";
-import { Input } from "../ui/input";
+import { useContext, useEffect, useState } from "react";
+import type { List, Priority } from "@/Types/types";
 import DatePicker from "../ui/DatePicker";
 import DropDownMenuList from "../ui/DropDownMenuList";
 import { useListTaskContext } from "@/context/ListTaskContext";
 import TimePicker from "../ui/TimePicker";
-import { createdDateFormat } from "@/utils/HelpFun";
+import { createdDateFormat, dayDeadlineFormat } from "@/utils/HelpFun";
+import { useNavigate, useParams } from "react-router-dom";
 
-function CreateListWindow({ onClose }: { onClose: () => void }) {
+type PropsElements = {
+  onClose: () => void;
+  type: string;
+  initialData?: List;
+}
+
+function CreateListWindow({onClose, type, initialData} : PropsElements) {
+
   const [listName, setListName] = useState<string>("");
   const [selectedPriority, setSelectedPriority] = useState<Priority>("Low");
   const [dayDeadline, setDayDeadline] = useState<Date | undefined>(undefined);
   const [timeDeadline, setTimeDeadline] = useState<Date | undefined>(undefined);
   const createdDate = createdDateFormat();
-  const { addListItem } = useListTaskContext();
+  const { addListItem, editListItem } = useListTaskContext();
+  const { listId }  = useParams<{listId: string}>();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+      if(type === "edit" && initialData){
+        setListName(initialData.name)
+        setSelectedPriority(initialData.priority)
+        if(initialData.until !=="None"){
+          setDayDeadline(new Date(initialData.until))
+        }
+        if(initialData.time !== "None"){
+          const [ hours, minutes ] = initialData.time.split(":").map(Number);
+          const newHour = new Date()
+          newHour.setHours(hours, minutes, 0, 0);
+          setTimeDeadline(newHour);
+        }
+      }
+    }, [type, initialData]);
 
   function handleSelectPriority(priority: Priority) {
     setSelectedPriority(priority);
   }
 
-
   function finalDay() {
-
     if (!dayDeadline) return "None";
-    return dayDeadline.toDateString();
+    return dayDeadlineFormat(dayDeadline.toDateString());
   }
 
   function finalTime() {
-
     if (!timeDeadline) return "None";
     return timeDeadline.toTimeString().slice(0, 5);
+  }
+
+  function handleSubmit() {
+    const listItem = {
+      id: type === "new" ? crypto.randomUUID() : (initialData!.id || ""),
+      name: listName,
+      priority: selectedPriority,
+      created: type === "new" ? createdDate : (initialData!.created || ""),
+      until: finalDay(),
+      time: finalTime(),
+      tasks: type === "new" ? [] :  (initialData!.tasks || []),
+    }
+    if (type === "new") {
+      addListItem(listItem)
+    }
+    else if (type === "edit") {
+      if (listId) {
+        editListItem(listItem, listId)
+      }
+    }
   }
 
 
@@ -46,15 +87,7 @@ function CreateListWindow({ onClose }: { onClose: () => void }) {
         }}
         onSubmit={(e) => {
           e.preventDefault();
-          addListItem({
-            id: crypto.randomUUID(),
-            name: listName,
-            priority: selectedPriority,
-            created: createdDate,
-            until: finalDay(),
-            time: finalTime(),
-            tasks: [],
-          });
+          handleSubmit();
           onClose();
         }}
         action=""
@@ -62,7 +95,7 @@ function CreateListWindow({ onClose }: { onClose: () => void }) {
         <div className="relative bg-stone-900 rounded-xl p-6 w-[400px] z-10 lg:w-[600px]">
           <div className="flex flex-col gap-5">
             <h2 className="text-2xl text-purple-800 font-bold text-center">
-              Create New List
+              {type === "new" ? "Create New List" : "Edit List"}
             </h2>
 
             <input
@@ -105,7 +138,7 @@ function CreateListWindow({ onClose }: { onClose: () => void }) {
                 type={"submit"}
                 className="px-4 py-2 rounded bg-purple-700"
               >
-                Create
+                {type === "new" ? "Create" : "Edit"}
               </button>
             </div>
           </div>

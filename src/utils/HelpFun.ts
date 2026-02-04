@@ -27,6 +27,20 @@ export const createdDateFormat = () => {
     return createdDate;
 }
 
+export const dayDeadlineFormat = (date: string) => {
+
+    if(date === "None"){
+        return "None"
+    }
+
+    const splitDate = date.split(" ");
+    let stringMonth = splitDate[1];
+
+    const numMonth = switchCaseForMonth(stringMonth);
+
+    return `${numMonth}.${splitDate[2]}.${splitDate[3]}`
+}
+
 export const getMonthName = (monthNum: number) => {
     switch(monthNum){
         case 1:
@@ -55,5 +69,24 @@ export const getMonthName = (monthNum: number) => {
             return "December"
         default:
             return ""
+    }
+}
+
+const switchCaseForMonth = (month: string) => {
+    switch (month) {
+        case "Jan": return "01";
+        case "Feb": return "02";
+        case "Mar": return "03";
+        case "Apr": return "04";
+        case "May": return "05";
+        case "Jun": return "06";
+        case "Jul": return "07";
+        case "Aug": return "08";
+        case "Sep": return "09";
+        case "Oct": return "10";
+        case "Nov": return "11";
+        case "Dec": return "12";
+        default:
+            return "Invalid Month";
     }
 }

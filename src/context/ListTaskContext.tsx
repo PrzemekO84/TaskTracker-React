@@ -5,8 +5,8 @@ import type { TasksCounter } from "@/Types/types";
 type ListTaskContextType = {
     listInfo: List[],
     addListItem: (list: List) => void,
-    editListItem: (updateItem: List, itemId: string) => void,
-    deleteListItem: (itemId: string) => void,
+    editListItem: (updateItem: List, listId: string) => void,
+    deleteListItem: (listId: string) => void,
     addTaskItem: (listId: string, newTask: Task) => void,
     editTaskItem: (listId: string, taskId: string, newTask: Task) => void
     deleteTaskItem: (listId: string, taskId: string) => void

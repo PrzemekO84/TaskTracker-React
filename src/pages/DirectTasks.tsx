@@ -1,17 +1,22 @@
 import { useListTaskContext } from "@/context/ListTaskContext";
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import type { List } from "@/Types/types";
+import { useNavigate, useParams } from "react-router-dom";
 import NotFound from "./NotFound";
 import TaskWindow from "@/Components/DirectTasksComponents.tsx/TaksWindow";
 import SingleTask from "@/Components/DirectTasksComponents.tsx/SingleTask";
+import CreateListWindow from "@/Components/TasksComponents/CreateList";
 import { toUpperCase } from "@/utils/HelpFun";
 
 function DirectTasks() {
     const { listId } = useParams<{listId : string}>();
-    const { listInfo } = useListTaskContext();
+    const { listInfo, deleteListItem } = useListTaskContext();
     const [newTaskWindow, setNewTaskWindow] = useState(false);
+    const [editListWindow, setEditListWindow] = useState(false);
+    const navigate = useNavigate();
 
-    const handleNewTaskWindow = () => setNewTaskWindow(!newTaskWindow)
+    const handleNewTaskWindow = () => setNewTaskWindow(!newTaskWindow);
+    const handleEditTaskWindow = () => setEditListWindow(!editListWindow);
 
     const currentList = listInfo.find((list) => {
         return list.id === listId;
@@ -20,6 +25,16 @@ function DirectTasks() {
     if(!currentList){
         return <NotFound />
     }
+
+     const initialListInfo: List = {
+        id: currentList.id,
+        name: currentList.name,
+        priority: currentList.priority,
+        created: currentList.created,
+        until: currentList.until,
+        time: currentList.time,
+        tasks: currentList.tasks
+      };
 
     useEffect(() => {
       if (newTaskWindow === true) {
@@ -49,10 +64,19 @@ function DirectTasks() {
           >
             Add Task
           </button>
-          <button className="p-4 text-xl xl:text-2xl button buttonHighLight bg-sky-700">
+          <button className="p-4 text-xl xl:text-2xl button buttonHighLight bg-sky-700"
+            onClick={handleEditTaskWindow}
+          >
             Edit List
           </button>
-          <button className="p-4 text-xl xl:text-2xl button buttonHighLight bg-red-900">
+          <button className="p-4 text-xl xl:text-2xl button buttonHighLight bg-red-900"
+            onClick={() => {
+              if(listId){
+                deleteListItem(listId)
+                navigate("/Tasks")
+              }
+            }}
+          >
             Delete List
           </button>
         </div>
@@ -81,6 +105,10 @@ function DirectTasks() {
 
         {newTaskWindow && (
           <TaskWindow onClose={handleNewTaskWindow} listId={listId!} type={"new"}/>
+        )}
+
+        {editListWindow && (
+          <CreateListWindow onClose={handleEditTaskWindow } type={"edit"} initialData={initialListInfo}/>
         )}
       </div>
     );

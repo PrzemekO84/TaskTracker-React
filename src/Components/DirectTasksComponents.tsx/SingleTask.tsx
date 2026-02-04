@@ -6,7 +6,7 @@ import TaskWindow from "./TaksWindow";
 import { useState } from "react";
 import { Check } from "lucide-react";
 import { priorityColor } from "@/utils/HelpFun";
-import { createdDateFormat } from "@/utils/HelpFun";
+import { createdDateFormat, dayDeadlineFormat } from "@/utils/HelpFun";
 
 
 function SingleTask({
@@ -54,7 +54,7 @@ function SingleTask({
       <h1>{name}</h1>
       <h1 className={`${priorityColor(priority)}`}>Priority: {priority}</h1>
       <h1>Created: {createdDateFormat()}</h1>
-      <h1>Day Deadline: {until}</h1>
+      <h1>Day Deadline: {dayDeadlineFormat(until)}</h1>
       <h1>Time Deadline: {time}</h1>
       <div className="flex gap-3 items-center justify-center mr-2">
         <div>
