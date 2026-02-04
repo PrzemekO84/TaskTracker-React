@@ -1,5 +1,5 @@
 import type { List, Task, MonthlyCounter } from "@/Types/types";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import type { TasksCounter } from "@/Types/types";
 
 type ListTaskContextType = {
@@ -22,7 +22,15 @@ type ListTaskContextType = {
 export const ListTaskContext = createContext<ListTaskContextType | undefined>(undefined);
 
 export const ListTaskProvider = ({ children } : {children: React.ReactNode}) => {
-    const [listInfo, setListInfo] = useState<List[]>([]);
+    const [listInfo, setListInfo] = useState<List[]>(() => {
+        const saved = localStorage.getItem("listInfo");
+
+        return saved ? JSON.parse(saved) : [];
+    });
+
+    useEffect(() => {
+      localStorage.setItem("listInfo", JSON.stringify(listInfo));
+    }, [listInfo]);
 
     const [dailyCount, setDailyCount] = useState(() => {
         const saved = localStorage.getItem("dailyCounter");
@@ -34,20 +42,23 @@ export const ListTaskProvider = ({ children } : {children: React.ReactNode}) => 
         return 0;
     })
 
-    function setDailyCounter(){
-        setDailyCount((prevCount: number) => {
-            const newCount = prevCount + 1;
-            localStorage.setItem("dailyCounter", JSON.stringify({
-                count: newCount,
-                date: new Date().toDateString()
-            }))
-            return newCount;
-        })
+    function setDailyCounter() {
+      setDailyCount((prevCount: number) => {
+        const newCount = prevCount + 1;
+        localStorage.setItem(
+          "dailyCounter",
+          JSON.stringify({
+            count: newCount,
+            date: new Date().toDateString(),
+          }),
+        );
+        return newCount;
+      });
     }
 
 
-    const [monthlyCount, setMontlyCount] = useState<{[key: string]: number}>(() => {
-        const saved = localStorage.getItem("montlyCounter");
+    const [monthlyCount, setMonthlyCount] = useState<{[key: string]: number}>(() => {
+        const saved = localStorage.getItem("monthlyCounter");
 
         return saved ? JSON.parse(saved) : {}
     })
@@ -65,8 +76,8 @@ export const ListTaskProvider = ({ children } : {children: React.ReactNode}) => 
             currentMonth[monthKey] = 1;
         }
 
-        setMontlyCount(currentMonth);
-        localStorage.setItem("montlyCounter", JSON.stringify(currentMonth));
+        setMonthlyCount(currentMonth);
+        localStorage.setItem("monthlyCounter", JSON.stringify(currentMonth));
     }
 
     

@@ -19,6 +19,7 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/Components/ui/chart"
+import { useMemo } from "react"
 
 export const description = "A bar chart"
 
@@ -42,22 +43,33 @@ const chartConfig = {
 export function ChartBarDefault() {
   const { monthlyCount } = useListTaskContext();
 
-  const chartData = Object.keys(monthlyCount).map((key) => {
-    const monthNum: string[] = key.split("-");
-    const month: string = getMonthName(parseInt(monthNum[0]));
 
-    return {
-      month: month.slice(0,3),
-      desktop: monthlyCount[key]
-    }
-    
-  });
+  const chartData = useMemo(() => {
+    return Object.keys(monthlyCount)
+    .sort((a, b) => {
+      const monthA = parseInt(a.split("-")[0]);
+      const monthB = parseInt(b.split("-")[0]);
+
+      return monthA - monthB
+    })
+    .map((key) => {
+      const monthNum = key.split("-");
+      const month = getMonthName(parseInt(monthNum[0]));
+      return {
+        month: month.slice(0, 3),
+        desktop: monthlyCount[key],
+      };
+    });
+  }, [monthlyCount]);
+
 
   return (
     <Card className="bg-stone-950 border-stone-800 border-4 divBorderHover text-white">
       <CardHeader>
         <CardTitle>Tasks Chart</CardTitle>
-        <CardDescription>January - December {new Date().getFullYear()}</CardDescription>
+        <CardDescription>
+          January - December {new Date().getFullYear()}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -84,5 +96,5 @@ export function ChartBarDefault() {
         </div>
       </CardFooter>
     </Card>
-  )
+  );
 }
