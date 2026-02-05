@@ -46,7 +46,7 @@ function TaskWindow({ onClose, listId, type, initialData }: PropsElements) {
    
   function finalTime() {
     if (!timeDeadline) return "None";
-    return timeDeadline.toTimeString().slice(0, 5);
+    return timeDeadline.toTimeString();
   }
 
   function handleSubmit() {

@@ -45,5 +45,6 @@ export type MonthlyCounter = {
   count: number;
 }
 
+export type SortType = "createdNewest" | "createdOldest" | "priorityHighest" | "priorityLowest" | "deadlineSoonest" | "deadlineLatest" | "default";
 
 

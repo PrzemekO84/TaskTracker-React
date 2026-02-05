@@ -1,20 +1,37 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import type { SortType } from "@/Types/types";
+import { Link, useParams } from "react-router-dom";
 import CreateListWindow from "@/Components/TasksComponents/CreateList";
 import { useListTaskContext } from "@/context/ListTaskContext";
 import ListName from "@/Components/TasksComponents/ListName";
 import ListBox from "@/Components/TasksComponents/ListBox";
-import { ChevronDown } from "lucide-react";
-import DropdownHover from "@/Components/ui/SortByHover";
+import SortByHover from "@/Components/ui/SortByHover";
+import { sortCreatedList, sortDeadlineList, sortPriorityList } from "@/utils/SortingFuncs";
 
 
 function Tasks(){
     const [createListWindow, setCreateListWindow] = useState(false);
     const { listInfo } = useListTaskContext();
+    const { listId } = useParams<string>();
+    const [sortType, setSortType] = useState<SortType>("default");
 
     function handleCreateWindow(){
         setCreateListWindow(!createListWindow);
     }
+
+    //const currentList = listInfo.find(list => list.id === listId);
+
+    const sortedData = useMemo(() => {
+      switch(sortType){
+        case "createdNewest": return sortCreatedList(listInfo, "Newest")
+        case "createdOldest": return sortCreatedList(listInfo, "Oldest")
+        case "priorityHighest": return sortPriorityList(listInfo, "Highest")
+        case "priorityLowest": return sortPriorityList(listInfo, "Lowest")
+        case "deadlineSoonest": return sortDeadlineList(listInfo, "Soonest")
+        case "deadlineLatest": return sortDeadlineList(listInfo, "Latest")
+        case "default": return listInfo
+      }
+    }, [listInfo, sortType])
 
     useEffect(() => {
       if (createListWindow === true) {
@@ -42,14 +59,12 @@ function Tasks(){
             >
               Create New List
             </button>
-            <div>
-              <button className="text-xl lg:text-2xl border-stone-600 border-2 p-3 rounded-md flex items-center gap-2">
-                <DropdownHover />
-              </button>
+            <div className="text-xl lg:text-2xl border-stone-600 border-2 p-3 rounded-md flex items-center gap-2">
+                <SortByHover sort={setSortType}/>
             </div>
           </div>
           <div className="h-full flex flex-col items-center gap-4">
-            {listInfo.map((list) => {
+            {sortedData.map((list) => {
               return (
                 <Link key={list.id} to={`/DirectTasks/${list.id}`} className="w-full">
                   <ListName title={list.name} />
@@ -59,7 +74,7 @@ function Tasks(){
           </div>
         </div>
         <div className="border-2 border-stone-800 rounded-md p-3 w-[70%] grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-5 auto-rows-[350px]">
-          {listInfo.map((list) => {
+          {sortedData.map((list) => {
             return (
               <Link key={list.id} to={`/DirectTasks/${list.id}`}>
                 <ListBox

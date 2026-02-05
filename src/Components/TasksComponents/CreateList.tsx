@@ -4,7 +4,7 @@ import DatePicker from "../ui/DatePicker";
 import DropDownMenuList from "../ui/DropDownMenuList";
 import { useListTaskContext } from "@/context/ListTaskContext";
 import TimePicker from "../ui/TimePicker";
-import { createdDateFormat, dayDeadlineFormat } from "@/utils/HelpFun";
+import { createdDateFormat } from "@/utils/HelpFun";
 import { useNavigate, useParams } from "react-router-dom";
 
 type PropsElements = {
@@ -19,7 +19,7 @@ function CreateListWindow({onClose, type, initialData} : PropsElements) {
   const [selectedPriority, setSelectedPriority] = useState<Priority>("Low");
   const [dayDeadline, setDayDeadline] = useState<Date | undefined>(undefined);
   const [timeDeadline, setTimeDeadline] = useState<Date | undefined>(undefined);
-  const createdDate = createdDateFormat();
+  const createdDate = new Date().toDateString();
   const { addListItem, editListItem } = useListTaskContext();
   const { listId }  = useParams<{listId: string}>();
   const navigate = useNavigate();
@@ -40,18 +40,20 @@ function CreateListWindow({onClose, type, initialData} : PropsElements) {
       }
     }, [type, initialData]);
 
+    console.log(dayDeadline?.toDateString());
+
   function handleSelectPriority(priority: Priority) {
     setSelectedPriority(priority);
   }
 
   function finalDay() {
     if (!dayDeadline) return "None";
-    return dayDeadlineFormat(dayDeadline.toDateString());
+    return dayDeadline.toDateString();
   }
 
   function finalTime() {
     if (!timeDeadline) return "None";
-    return timeDeadline.toTimeString().slice(0, 5);
+    return timeDeadline.toTimeString();
   }
 
   function handleSubmit() {
