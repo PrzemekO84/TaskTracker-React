@@ -90,3 +90,8 @@ const switchCaseForMonth = (month: string) => {
             return "Invalid Month";
     }
 }
+
+export function resetData(){
+    localStorage.clear();
+    window.location.reload();
+}

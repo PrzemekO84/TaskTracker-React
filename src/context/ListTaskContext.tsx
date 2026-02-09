@@ -1,6 +1,9 @@
 import type { List, Task, MonthlyCounter } from "@/Types/types";
 import { createContext, useContext, useEffect, useState } from "react";
 import type { TasksCounter } from "@/Types/types";
+import { initialData } from "@/utils/startingData";
+import { startingMonthlyData } from "@/utils/startingData";
+
 
 type ListTaskContextType = {
     listInfo: List[],
@@ -23,9 +26,10 @@ export const ListTaskContext = createContext<ListTaskContextType | undefined>(un
 
 export const ListTaskProvider = ({ children } : {children: React.ReactNode}) => {
     const [listInfo, setListInfo] = useState<List[]>(() => {
-        const saved = localStorage.getItem("listInfo");
+        const saved = localStorage.getItem("list_data");
+        if (saved) return JSON.parse(saved);
 
-        return saved ? JSON.parse(saved) : [];
+        return initialData;
     });
 
     useEffect(() => {
@@ -60,7 +64,7 @@ export const ListTaskProvider = ({ children } : {children: React.ReactNode}) => 
     const [monthlyCount, setMonthlyCount] = useState<{[key: string]: number}>(() => {
         const saved = localStorage.getItem("monthlyCounter");
 
-        return saved ? JSON.parse(saved) : {}
+        return saved ? JSON.parse(saved) : startingMonthlyData;
     })
 
     function setMonthlyCounter(){
