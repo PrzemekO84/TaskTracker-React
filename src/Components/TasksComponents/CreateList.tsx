@@ -79,7 +79,7 @@ function CreateListWindow({onClose, type, initialData} : PropsElements) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/50" onClick={onClose}></div>
+      <div className="absolute inset-0 bg-black/30" onClick={onClose}></div>
       <form
         onKeyDown={(e) =>{
           if(e.key === "Enter"){
@@ -94,7 +94,7 @@ function CreateListWindow({onClose, type, initialData} : PropsElements) {
         }}
         action=""
       >
-        <div className="relative bg-stone-900 rounded-xl p-6 w-[400px] z-10 lg:w-[600px]">
+        <div className="relative bg-background border-2 rounded-xl p-6 w-[400px] z-10 lg:w-[600px]">
           <div className="flex flex-col gap-5">
             <h2 className="text-2xl text-purple-800 font-bold text-center">
               {type === "new" ? "Create New List" : "Edit List"}
@@ -109,7 +109,7 @@ function CreateListWindow({onClose, type, initialData} : PropsElements) {
               maxLength={25}
               type="text"
               placeholder="List name"
-              className="w-full p-2 rounded bg-stone-800 text-center border border-stone-500"
+              className="w-full p-2 rounded-md bg-stone-900 hover:bg-stone-800 text-center border-2"
             />
 
             <DropDownMenuList
@@ -132,13 +132,13 @@ function CreateListWindow({onClose, type, initialData} : PropsElements) {
               <button
                 type={"button"}
                 onClick={onClose}
-                className="px-4 py-2 rounded bg-stone-700"
+                className="px-4 py-2 rounded bg-stone-800"
               >
                 Cancel
               </button>
               <button
                 type={"submit"}
-                className="px-4 py-2 rounded bg-purple-700"
+                className="px-4 py-2 rounded bg-purple-900 hover:border-1 divBorderHover"
               >
                 {type === "new" ? "Create" : "Edit"}
               </button>

@@ -23,7 +23,7 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
       <PopoverTrigger asChild>
         <Button
           data-empty={!value}
-          className="data-[empty=true]:text-muted-foreground font-normal w-full bg-stone-800 rounded hover:bg-stone-950 p-5 border border-stone-500"
+          className="data-[empty=true]:text-muted-foreground font-normal w-full bg-stone-900 hover:bg-stone-800 rounded-md p-5 border-2"
         >
           {value ? format(value, "PPP") : (
             <span className="flex items-center gap-2">

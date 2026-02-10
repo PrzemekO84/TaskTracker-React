@@ -85,7 +85,7 @@ body{
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  --background: oklch(14.7% 0.004 49.25);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
@@ -100,7 +100,7 @@ body{
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(21.6% 0.006 56.043);
+  --border: oklch(26.8% 0.007 34.298);
   --input: oklch(26.8% 0.007 34.298);
   --ring: oklch(0.556 0 0);
   --chart-1: oklch(0.488 0.243 264.376);

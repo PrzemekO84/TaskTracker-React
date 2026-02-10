@@ -40,7 +40,7 @@ function Footer(){
             </Link>
           </div>
         </div>
-        <div className="p-3 bg-stone-950">
+        <div className="p-3 bg-background">
           <p>&copy; Designed by Przemek Orzechowski</p>
         </div>
         <div

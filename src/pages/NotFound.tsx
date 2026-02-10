@@ -10,7 +10,7 @@ function NotFound(){
                 </div>
                 <div className='flex flex-col gap-4 justify-center items-center'>
                     <h2 className='text-2xl'>Come back to the main page</h2>
-                    <Link to="/"> <Button className='text-xl bg-stone-950 py-6 px-6 hover:bg-stone-700'>Main Page</Button> </Link>
+                    <Link to="/"> <Button className='text-xl bg-stone-300 py-6 px-6 hover:bg-stone-100'>Main Page</Button> </Link>
                 </div>
             </div>
         </div>
