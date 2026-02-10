@@ -11,6 +11,8 @@ import Home from './pages/Home';
 import Tasks from './pages/Tasks';
 import Settings from './pages/Settings';
 import DirectTasks from './pages/DirectTasks';
+import Login from './pages/Login';
+import Singup from './pages/Signup';
 
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
               <Route path="/Tasks" element={<Tasks />} />
               <Route path="/Settings" element={<Settings />} />
               <Route path='/DirectTasks/:listId' element={<DirectTasks />} />
+              <Route path='/Login' element={<Login />} />
+              <Route path='/Signup' element={<Singup />}/> 
               <Route path="*" element={<NotFound />}>
                 {" "}
               </Route>

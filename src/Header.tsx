@@ -38,10 +38,10 @@ function Header() {
 
         <div className="hidden sm:flex gap-4 justify-center items-center mr-1 text-xl mt-1">
           <div className="border-2 border-purple-900 p-2 rounded-xl linkHighlight">
-            <button>Sign Up</button>
+            <Link to={"/Signup"}> <button>Sign Up</button> </Link>
           </div>
           <div className="border-2 border-purple-900 p-2 rounded-xl linkHighlight">
-            <button>Sign In</button>
+            <Link to={"/Login"}> <button>Sign In</button> </Link>
           </div>
           <div className="flex gap-2 justify-center items-center">
             <Switch className="border border-whites" />
