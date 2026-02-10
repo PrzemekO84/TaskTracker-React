@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 function Signup(){
     return (
-      <div className="w-screen flex justify-center items-center">
-        <div className="border-2 border-border rounded-md p-4 flex flex-col gap-4 justify-center">
+      <div className="w-screen flex justify-center items-center my-8">
+        <div className="border-3 border-border rounded-md p-6 flex flex-col gap-4 justify-center">
           <h2 className="text-4xl text-center">Create an account</h2>
           <h3 className="text-xl text-muted-foreground">
             Enter your username, email and password to create a new account

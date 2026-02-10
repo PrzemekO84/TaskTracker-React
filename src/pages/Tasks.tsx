@@ -52,14 +52,14 @@ function Tasks(){
     return (
       <div className="w-screen m-5 flex">
         <div className="border-2 border-stone-800 rounded-md p-2 w-[30%] flex flex-col">
-          <div className="border-2 border-stone-700 h-auto p-5 rounded-md flex flex-col gap-4 md:flex-row items-center justify-between mb-2">
+          <div className="border-2 h-auto p-5 rounded-md flex flex-col gap-4 lg:flex-row items-center justify-between mb-2">
             <button
               onClick={handleCreateWindow}
-              className="text-xl xl:text-3xl button buttonHighLight text-center"
+              className="text-lg xl:text-3xl button buttonHighLight text-center"
             >
               Create New List
             </button>
-            <div className="text-sm lg:text-2xl border-stone-600 border-2 p-3 rounded-md flex items-center gap-2">
+            <div className="text-sm lg:text-2xl border-3 p-3 rounded-md flex items-center gap-2">
                 <SortByHover sort={setSortType}/>
             </div>
           </div>

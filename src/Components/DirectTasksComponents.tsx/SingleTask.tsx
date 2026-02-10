@@ -46,9 +46,9 @@ function SingleTask({
   return (
     <div
       className={`grid grid-cols-1 min-[900px]:grid-cols-[0.5fr_1fr_1fr_1fr_1fr_1fr_1fr] items-center gap-4 border-4 rounded-2xl p-6
-       border-purple-900 text-center text-lg bg-stone-900 mt-5 ${done ? "transistion duration-600 ease-in bg-purple-900/40 line-through opacity-60" : "bg-stone-900"}`}
+      text-center border-purple-950/80 text-lg mt-5 ${done ? "transistion duration-600 ease-in bg-stone-900/20 line-through opacity-60" : "bg-background"}`}
     >
-      <h1 className="border border-purple-900  rounded-full bg-purple-800">
+      <h1 className="border border-purple-900  rounded-full bg-purple-950">
         {id}
       </h1>
       <h1>{name}</h1>

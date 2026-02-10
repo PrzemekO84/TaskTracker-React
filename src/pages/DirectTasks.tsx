@@ -69,7 +69,7 @@ function DirectTasks() {
 
     return (
       <div className="flex flex-col w-screen mb-20">
-        <div className="grid grid-cols-1 md:grid-cols-3 bg-stone-900 border-3 rounded-md border-purple-900 mt-5 p-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 border-3 rounded-md border-purple-950/80 mt-5 p-5">
           <div></div>
           <h1 className="text-center text-5xl break-words">
             {toUpperCase(currentList.name)}
@@ -104,7 +104,7 @@ function DirectTasks() {
             Delete List
           </button>
         </div>
-        <div className="flex flex-col ">
+        <div className="flex flex-col p-2">
           {sortedData.map((task, index) => {
                 return (
                   <SingleTask

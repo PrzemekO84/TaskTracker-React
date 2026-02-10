@@ -35,10 +35,16 @@ export function HamburgerMenu() {
         <div className="flex flex-col gap-8">
           <div className="grid grid-cols-1 text-center gap-4 text-3xl">
             <div className="border-2 border-purple-900 p-4 rounded-md linkHighlight">
-              <button>Sign Up</button>
+              <SheetClose asChild>
+                <Link to="Signup">
+                Sign Up
+                </Link>
+              </SheetClose>
             </div>
             <div className="border-2 border-purple-900 p-4 rounded-md linkHighlight">
-              <button>Sign In</button>
+              <SheetClose asChild>
+                <Link to="/Login">Sign In</Link>
+              </SheetClose>
             </div>
           </div>
 
