@@ -4,7 +4,7 @@ import DropdownHover from "@/Components/ui/SortByHover";
 
 function Home(){
     return (
-        <div className="flex flex-col border-2 border-red-500 items-center w-full mx-10 my-10">
+        <div className="flex flex-col items-center w-full mx-10 my-10">
             <Name />
             <Charts />
         </div>

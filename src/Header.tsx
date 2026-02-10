@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { Moon } from "lucide-react";
 import { Sun } from "lucide-react";
 import { CircleGauge } from "lucide-react";
+import { Menu } from "lucide-react";
+import { HamburgerMenu } from "./Components/ui/HamburgerMenu";
 
 
 //Mozna by dodac hamburger jesli zmniejszy sie jeszcze bardziej
@@ -21,7 +23,7 @@ function Header() {
             </h1>
             <CircleGauge className="mt-3" />
           </Link>
-          <div className="flex gap-5 justify-center mt-1 items-center text-xl lg:text-2xl 2xl:text-3xl">
+          <div className="hidden sm:flex gap-5 justify-center mt-1 items-center text-xl lg:text-2xl 2xl:text-3xl">
             <Link className=" p-2 rounded-xl linkHighlight " to="/">
               Home
             </Link>
@@ -34,7 +36,7 @@ function Header() {
           </div>
         </div>
 
-        <div className="flex gap-4 justify-center items-center mr-1 text-xl mt-1">
+        <div className="hidden sm:flex gap-4 justify-center items-center mr-1 text-xl mt-1">
           <div className="border-2 border-purple-900 p-2 rounded-xl linkHighlight">
             <button>Sign Up</button>
           </div>
@@ -46,6 +48,10 @@ function Header() {
             <Moon />
             {/* <Sun /> */}
           </div>
+        </div>
+
+        <div className="flex sm:hidden items-center mt-2">
+          <HamburgerMenu />   
         </div>
       </div>
     </div>

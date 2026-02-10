@@ -39,7 +39,7 @@ function SortByHover({ sort } : PropsElements) {
         >
           <div
             className="flex flex-col gap-1
-                p-2 2xl:text-lg bg-stone-900 text-white"
+                p-2 2xl:text-lg bg-stone-950 text-white"
           >
             <Button
               onClick={() => {
