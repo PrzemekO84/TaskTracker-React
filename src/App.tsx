@@ -28,7 +28,7 @@ function App() {
               <Route path="/Settings" element={<Settings />} />
               <Route path='/DirectTasks/:listId' element={<DirectTasks />} />
               <Route path='/Login' element={<Login />} />
-              <Route path='Signup' element={<Singup />}/> 
+              <Route path='/Signup' element={<Singup />}/> 
               <Route path="*" element={<NotFound />}>
                 {" "}
               </Route>
