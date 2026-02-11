@@ -48,7 +48,7 @@ function SingleTask({
       className={`grid grid-cols-1 min-[900px]:grid-cols-[0.5fr_1fr_1fr_1fr_1fr_1fr_1fr] items-center gap-4 border-4 rounded-2xl p-6
       text-center border-purple-950/80 text-lg mt-5 ${done ? "transistion duration-600 ease-in bg-stone-900/20 line-through opacity-60" : "bg-background"}`}
     >
-      <h1 className="border border-purple-900  rounded-full bg-purple-950">
+      <h1 className="border border-purple-900  rounded-full bg-purple-950 text-stone-200">
         {id}
       </h1>
       <h1>{name}</h1>
@@ -59,7 +59,7 @@ function SingleTask({
       <div className="flex gap-3 items-center justify-center mr-2">
         <div>
           <button
-            className={`flex gap-2 items-center border border-sky-500 bg-sky-700 p-1 
+            className={`flex gap-2 items-center border border-sky-500 bg-sky-700 p-1 text-stone-200
           rounded-md font-semibold buttonHighLight ${done ? "cursor-not-allowed" : "cursor-pointer"}`}
           disabled={done}
             onClick={() => {
@@ -71,7 +71,7 @@ function SingleTask({
         </div>
         <div>
           <button
-            className={`flex gap-2 items-center border border-red-500 bg-red-900 p-1 
+            className={`flex gap-2 items-center border border-red-500 bg-red-900 p-1 text-stone-200
           rounded-md font-semibold buttonHighLight ${done ? "cursor-not-allowed" : "cursor-pointer"}`}
           disabled={done}
             onClick={() => {
@@ -83,7 +83,7 @@ function SingleTask({
         </div>
         <div>
           <button
-            className={`flex gap-2 items-center border border-green-500 bg-green-800 p-1 
+            className={`flex gap-2 items-center border border-green-500 bg-green-800 p-1 text-white
           rounded-md font-semibold buttonHighLight ${done ? "cursor-not-allowed" : "cursor-pointer"}`}
           disabled={done}
             onClick={async () => {

@@ -166,7 +166,6 @@ export const ListTaskProvider = ({ children } : {children: React.ReactNode}) => 
     function getTotalTasksLength(){
         let counter: number = 0;
         listInfo.forEach(list => {
-            console.log(list.tasks.length);
             counter += list.tasks.length;
         });
 

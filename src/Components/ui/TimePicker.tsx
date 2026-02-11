@@ -34,7 +34,8 @@ export function TimePicker({ value, onChange }: TimePickerProps) {
       <PopoverTrigger asChild>
         <Button
           data-empty={!value}
-          className="w-full bg-stone-900 hover:bg-stone-800 p-5 border-2 font-normal data-[empty=true]:text-muted-foreground"
+          className="w-full bg-background dark:text-white text-black dark:bg-stone-900 dark:hover:border-purple-950 hover:border-black
+           p-5 border-2 font-normal data-[empty=true]:text-muted-foreground"
         >
           {value ? (
             `${format(value.getHours())}:${format(value.getMinutes())}`
@@ -46,7 +47,7 @@ export function TimePicker({ value, onChange }: TimePickerProps) {
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent className="w-auto p-4 bg-popover text-white border-2">
+      <PopoverContent className="w-auto p-4 bg-popover border-2">
         <div className="flex gap-3">
           {/* HOURS */}
           <select

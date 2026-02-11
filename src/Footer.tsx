@@ -7,23 +7,23 @@ import { resetData } from "./utils/HelpFun";
 
 function Footer(){
     return (
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center bg-black">
         <div className="bg-stone-900 flex gap-4 p-4 w-full justify-center">
-          <div className="flex gap-2 linkHighlight">
+          <div className="flex gap-2 linkHighlight text-white">
             <Link to="/">Home</Link>
             <Link to="/">
               {" "}
               <House />{" "}
             </Link>
           </div>
-          <div className="flex gap-2 linkHighlight">
+          <div className="flex gap-2 linkHighlight text-white">
             <Link to="https://github.com/PrzemekO84">Github</Link>
             <Link to="https://github.com/PrzemekO84">
               {" "}
               <GitHubIcon />{" "}
             </Link>
           </div>
-          <div className="flex gap-2 linkHighlight">
+          <div className="flex gap-2 linkHighlight text-white">
             <Link to="https://www.linkedin.com/in/przemek-orzechowski/">
               Linkedin
             </Link>
@@ -32,20 +32,20 @@ function Footer(){
               <LinkedInIcon />{" "}
             </Link>
           </div>
-          <div className="flex gap-2 linkHighlight">
+          <div className="flex gap-2 linkHighlight text-white">
             <Link to="https://youtu.be/dQw4w9WgXcQ">Youtube</Link>
             <Link to="https://youtu.be/dQw4w9WgXcQ">
               {" "}
               <YouTubeIcon />{" "}
             </Link>
           </div>
-        </div>
-        <div className="p-3 bg-background">
+        </div> 
+        <div className="p-3 bg-black text-white">
           <p>&copy; Designed by Przemek Orzechowski</p>
         </div>
         <div
           onClick={resetData}
-          className="mb-3 border-2 border-stone-800 p-1 rounded-md cursor-pointer"
+          className="mb-3 border-2 border-stone-800 p-1 rounded-md cursor-pointer text-white"
         >
           Reset App/Data
         </div>

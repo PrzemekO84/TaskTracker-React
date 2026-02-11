@@ -22,7 +22,7 @@ function DropDownMenuList({selectedPriority, handleSelectPriority} : PropsElemen
     <div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button className="w-full text-foreground bg-stone-900 hover:bg-stone-800 p-5 border-2 border-stone-800 rounded-md">
+          <Button className="w-full text-foreground bg-background hover:border-black dark:bg-stone-900 dark:hover:border-purple-950 p-5 border-2 rounded-md">
             {selectedPriority
               ? "Priority: " +
                 selectedPriority.charAt(0).toUpperCase() +
@@ -38,12 +38,12 @@ function DropDownMenuList({selectedPriority, handleSelectPriority} : PropsElemen
               handleSelectPriority(value as Priority);
             }}
           >
-            <DropdownMenuRadioItem className="text-foreground hover:bg-stone-800"value="Critical">
+            <DropdownMenuRadioItem className="text-foreground hover:bg-stone-100 dark:hover:bg-stone-800"value="Critical">
               Critical
             </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem className="text-foreground hover:bg-stone-800"value="High">High</DropdownMenuRadioItem>
-            <DropdownMenuRadioItem className="text-foreground hover:bg-stone-800"value="Medium">Medium</DropdownMenuRadioItem>
-            <DropdownMenuRadioItem className="text-foreground hover:bg-stone-800"value="Low">Low</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem className="text-foreground hover:bg-stone-100 dark:hover:bg-stone-800"value="High">High</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem className="text-foreground hover:bg-stone-100 dark:hover:bg-stone-800"value="Medium">Medium</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem className="text-foreground hover:bg-stone-100 dark:hover:bg-stone-800"value="Low">Low</DropdownMenuRadioItem>
           </DropdownMenuRadioGroup>
         </DropdownMenuContent>
       </DropdownMenu>

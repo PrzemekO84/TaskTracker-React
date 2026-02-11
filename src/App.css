@@ -3,10 +3,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-body{
-  background-color: oklch(14.7% 0.004 49.25);
-  color: oklch(92.3% 0.003 48.717);
-}
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -51,7 +47,7 @@ body{
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
+  --background: oklch(92% 0.0001 271.152);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -66,7 +62,7 @@ body{
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
+  --border: oklch(59.649% 0.00007 271.152);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
   --chart-1: oklch(0.646 0.222 41.116);
@@ -137,7 +133,7 @@ body{
 }
 
 @utility nameTaskInfo {
-  @apply border-2 border-stone-950 bg-purple-950 rounded-2xl font-bold px-4 py-3 text-xl shadow-lg/10 shadow-white text-center
+  @apply border-2 border-black bg-purple-950 text-white rounded-2xl font-bold px-4 py-3 text-xl shadow-lg/10 shadow-black dark:shadow-white text-center
 }
 
 @utility buttonHighLight{
@@ -145,15 +141,15 @@ body{
 }
 
 @utility chartDiv {
-  @apply rounded-2xl border-4 bg-stone-950 border-stone-800 border-2 text-white p-3 h-full
+  @apply rounded-2xl border-3 border-2 text-foreground p-3 h-full
 }
 
 @utility divBorderHover{
-  @apply transition duration-500 ease-in-out hover:border-stone-400
+  @apply transition duration-500 ease-in-out dark:hover:border-stone-400 hover:border-stone-950
 }
 
 @utility button {
-  @apply border-4 border-black bg-purple-950 rounded-xl p-3 cursor-pointer text-stone-300 hover:text-white transition duration-500 ease-in-out
+  @apply border-2 border-black bg-purple-950 rounded-xl p-3 cursor-pointer text-foreground hover:text-white transition duration-500 ease-in-out
 }
 
 /*  */

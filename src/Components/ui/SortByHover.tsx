@@ -39,14 +39,14 @@ function SortByHover({ sort } : PropsElements) {
         >
           <div
             className="flex flex-col gap-1
-                p-2 2xl:text-lg bg-stone-950 text-white"
+                p-2 2xl:text-lg dark:bg-background bg-stone-300"
           >
             <Button
               onClick={() => {
                 sort("createdNewest");
                 setSortName("Created (Newest)")
               }}
-              className="p-6 hover:bg-stone-800"
+              className="p-6 linkHighlight bg-stone-100 dark:bg-stone-900 text-foreground"
             >
               Created (Newest) <ArrowUp />{" "}
             </Button>
@@ -55,7 +55,7 @@ function SortByHover({ sort } : PropsElements) {
                 sort("createdOldest");
                 setSortName("Created (Oldest)")
               }}
-              className="p-6 hover:bg-stone-800"
+              className="p-6 linkHighlight bg-stone-100 dark:bg-stone-900 text-foreground"
             >
               Created (Oldest) <ArrowDown />{" "}
             </Button>
@@ -64,7 +64,7 @@ function SortByHover({ sort } : PropsElements) {
                 sort("priorityHighest");
                 setSortName("Priority (Highest)")
               }}
-              className="p-6 hover:bg-stone-800"
+              className="p-6 linkHighlight bg-stone-100 dark:bg-stone-900 text-foreground"
             >
               Priority (Highest) <ArrowUp />{" "}
             </Button>
@@ -73,7 +73,7 @@ function SortByHover({ sort } : PropsElements) {
                 sort("priorityLowest");
                 setSortName("Priority (Lowest)")
               }}
-              className="p-6 hover:bg-stone-800"
+              className="p-6 linkHighlight bg-stone-100 dark:bg-stone-900 text-foreground"
             >
               Priority (Lowest) <ArrowDown />{" "}
             </Button>
@@ -82,7 +82,7 @@ function SortByHover({ sort } : PropsElements) {
                 sort("deadlineSoonest");
                 setSortName("Deadline (Soonest)")
               }}
-              className="p-6 hover:bg-stone-800"
+              className="p-6 linkHighlight bg-stone-100 dark:bg-stone-900 text-foreground"
             >
               Deadline (Soonest) <ArrowUp />{" "}
             </Button>
@@ -91,7 +91,7 @@ function SortByHover({ sort } : PropsElements) {
                 sort("deadlineLatest");
                 setSortName("Deadline (Latest)")
               }}
-              className="p-6 hover:bg-stone-800"
+              className="p-6 linkHighlight bg-stone-100 dark:bg-stone-900 text-foreground"
             >
               Deadline (Latest) <ArrowDown />{" "}
             </Button>

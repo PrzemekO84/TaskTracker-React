@@ -16,21 +16,21 @@ function Signup(){
                 <label className="text-lg" htmlFor="">
                   Username
                 </label>
-                <Input placeholder="ILovePanckes123" className="p-5" />
+                <Input placeholder="ILovePanckes123" className="p-5 border-black dark:border-border" />
               </div>
               <div className="flex flex-col gap-2">
                 <label className="text-lg" htmlFor="">
                   Email
                 </label>
-                <Input placeholder="MyEmail@gmail.com" className="p-5" />
+                <Input placeholder="MyEmail@gmail.com" className="p-5 border-black dark:border-border" />
               </div>
               <div className="flex flex-col gap-2">
                 <label className="text-lg" htmlFor="">
                   Password
                 </label>
-                <Input className="p-5" />
+                <Input type="password" className="p-5 border-black dark:border-border" />
               </div>
-              <button className="border-2 p-3 rounded-md bg-purple-950 text-xl hover:border-stone-300 hover:border-1 transition duration-500 ease-in-out">
+              <button className="border-2 p-3 rounded-md text-white bg-purple-950 text-xl hover:border-black dark:hover:border-stone-300 transition duration-500 ease-in-out">
                 Create
               </button>
             </div>
@@ -44,7 +44,7 @@ function Signup(){
 
             <div className="flex-grow border-t border"></div>
           </div>
-          <button className="border-2 p-3 rounded-md text-xl hover:border-stone-300 hover:border-1 transition duration-500 ease-in-out">
+          <button className="border-2 p-3 rounded-md text-xl hover:border-black dark:hover:border-stone-300 transition duration-500 ease-in-out">
             <GitHubIcon className="mb-1" /> GitHub
           </button>
           <div>

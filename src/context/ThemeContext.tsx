@@ -4,17 +4,17 @@ type Theme = "dark" | "light";
 
 type ThemeContextType = {
     theme: Theme;
-    changeTheme: (theme: Theme) => void;
+    changeTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-const ThemeContextProvider = ({children} : {children: React.ReactNode}) => {
+export const ThemeContextProvider = ({children} : {children: React.ReactNode}) => {
     const [theme, setTheme] = useState<Theme>(() => {
         const savedTheme = localStorage.getItem("uiTheme");
         if(savedTheme) return savedTheme as Theme;
 
-        return "dark";
+        return "light";
     })
 
     useEffect(() => {
@@ -24,9 +24,18 @@ const ThemeContextProvider = ({children} : {children: React.ReactNode}) => {
         localStorage.setItem("uiTheme", theme);
     }, [theme])
 
-    const changeTheme = (theme: Theme) => {
-        setTheme(theme);
+    const changeTheme = () => {
+        console.log(theme);
+        console.log("Theme changed");
+        setTheme((prevTheme) => {
+            if(prevTheme === "dark"){
+                return "light"
+            }
+            return "dark"
+        });
     }
+
+    console.log(theme);
 
     return (
         <ThemeContext.Provider value={{theme, changeTheme}}>

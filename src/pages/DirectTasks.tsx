@@ -82,18 +82,18 @@ function DirectTasks() {
         <div className="flex gap-4 justify-center mt-5 xl:gap-8">
           <button
             onClick={handleNewTaskWindow}
-            className="p-4 text-xl xl:text-2xl button buttonHighLight"
+            className="p-4 text-xl xl:text-2xl button buttonHighLight text-white"
           >
             Add Task
           </button>
           <button
-            className="p-4 text-xl xl:text-2xl button buttonHighLight bg-sky-700"
+            className="p-4 text-xl xl:text-2xl button buttonHighLight bg-sky-700 text-white"
             onClick={handleEditTaskWindow}
           >
             Edit List
           </button>
           <button
-            className="p-4 text-xl xl:text-2xl button buttonHighLight bg-red-900"
+            className="p-4 text-xl xl:text-2xl button buttonHighLight bg-red-900 text-white"
             onClick={() => {
               if (listId) {
                 deleteListItem(listId);

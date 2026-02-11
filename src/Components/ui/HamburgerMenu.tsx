@@ -4,7 +4,8 @@ import { Label } from "@/Components/ui/label"
 import { CircleGauge, Menu } from "lucide-react"
 import { Link } from "react-router-dom"
 import { Switch } from "./switch"
-import { Moon } from "lucide-react"
+import { Moon, Sun } from "lucide-react"
+import { useThemeContext } from "@/context/ThemeContext"
 import {
   Sheet,
   SheetClose,
@@ -18,6 +19,8 @@ import {
 
 
 export function HamburgerMenu() {
+  const { theme, changeTheme } = useThemeContext();
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -77,9 +80,8 @@ export function HamburgerMenu() {
           </nav>
           <div>
             <div className="flex gap-2 justify-center items-center text-3xl border-2 p-4 rounded-md border-stone-800 divBorderHover">
-              <Switch className="" size="default" />
-              <Moon />
-              {/* <Sun /> */}
+              <Switch onClick={changeTheme} size="default" />
+              {theme === "light" ? <Sun /> : <Moon />}
             </div>
           </div>
         </div>

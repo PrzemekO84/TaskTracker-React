@@ -109,7 +109,7 @@ function CreateListWindow({onClose, type, initialData} : PropsElements) {
               maxLength={25}
               type="text"
               placeholder="List name"
-              className="w-full p-2 rounded-md bg-stone-900 hover:bg-stone-800 text-center border-2"
+              className="w-full p-2 rounded-md dark:bg-stone-900 dark:hover:border-purple-950 hover:border-black text-center border-2"
             />
 
             <DropDownMenuList
@@ -132,13 +132,13 @@ function CreateListWindow({onClose, type, initialData} : PropsElements) {
               <button
                 type={"button"}
                 onClick={onClose}
-                className="px-4 py-2 rounded bg-stone-800"
+                className="px-4 py-2 rounded bg-white dark:bg-stone-800"
               >
                 Cancel
               </button>
               <button
                 type={"submit"}
-                className="px-4 py-2 rounded bg-purple-900 hover:border-1 divBorderHover"
+                className="px-4 py-2 rounded text-white bg-purple-900 hover:border-1 divBorderHover"
               >
                 {type === "new" ? "Create" : "Edit"}
               </button>

@@ -1,6 +1,5 @@
 import Name from "@/Components/HomeComponents/Name";
 import Charts from "@/Components/HomeComponents/Charts";
-import DropdownHover from "@/Components/ui/SortByHover";
 
 function Home(){
     return (

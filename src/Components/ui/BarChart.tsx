@@ -64,7 +64,7 @@ export function ChartBarDefault() {
 
 
   return (
-    <Card className="bg-stone-950 border-stone-800 border-4 divBorderHover text-white">
+    <Card className="bg-background border-3 divBorderHover text-foreground">
       <CardHeader>
         <CardTitle>Tasks Chart</CardTitle>
         <CardDescription>

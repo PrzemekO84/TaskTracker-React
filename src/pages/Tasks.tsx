@@ -55,7 +55,7 @@ function Tasks(){
           <div className="border-2 h-auto p-5 rounded-md flex flex-col gap-4 lg:flex-row items-center justify-between mb-2">
             <button
               onClick={handleCreateWindow}
-              className="text-lg xl:text-3xl button buttonHighLight text-center"
+              className="text-lg xl:text-3xl button buttonHighLight text-center text-white"
             >
               Create New List
             </button>
