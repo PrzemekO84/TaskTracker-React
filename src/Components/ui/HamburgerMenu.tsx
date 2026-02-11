@@ -24,7 +24,7 @@ export function HamburgerMenu() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Menu size={30} />
+        <Menu className="text-white" size={30} />
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>

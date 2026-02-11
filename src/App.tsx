@@ -27,7 +27,12 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/Tasks" element={<Tasks />} />
-                <Route path="/Settings" element={<Settings />} />
+                <Route path="/Settings" element={<Settings />}>
+                  <Route path='Appearence' element={<Home />}/>
+                  <Route index element={<Home />}/>
+                  <Route path='Stats' element={<Home />}/>
+                </Route>
+                
                 <Route path="/DirectTasks/:listId" element={<DirectTasks />} />
                 <Route path="/Login" element={<Login />} />
                 <Route path="/Signup" element={<Singup />} />
@@ -41,6 +46,7 @@ function App() {
         </ThemeContextProvider>
       </ListTaskProvider>
     </div>
+    
   );
 }
 

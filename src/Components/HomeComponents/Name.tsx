@@ -12,7 +12,7 @@ function Name() {
       {listInfo.length > 0 ? (
         <>
           <h2 className="text-4xl">You have:</h2>
-          <div className="flex gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
             <div className="nameTaskInfo buttonHighLight">
               <p>{listInfo.length} {listInfo.length > 1 ? "Lists" : "List"}</p>
             </div>
