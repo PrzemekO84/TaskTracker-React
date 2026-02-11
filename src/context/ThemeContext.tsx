@@ -14,7 +14,7 @@ export const ThemeContextProvider = ({children} : {children: React.ReactNode}) =
         const savedTheme = localStorage.getItem("uiTheme");
         if(savedTheme) return savedTheme as Theme;
 
-        return "light";
+        return "dark";
     })
 
     useEffect(() => {
@@ -25,8 +25,6 @@ export const ThemeContextProvider = ({children} : {children: React.ReactNode}) =
     }, [theme])
 
     const changeTheme = () => {
-        console.log(theme);
-        console.log("Theme changed");
         setTheme((prevTheme) => {
             if(prevTheme === "dark"){
                 return "light"
@@ -34,8 +32,6 @@ export const ThemeContextProvider = ({children} : {children: React.ReactNode}) =
             return "dark"
         });
     }
-
-    console.log(theme);
 
     return (
         <ThemeContext.Provider value={{theme, changeTheme}}>
