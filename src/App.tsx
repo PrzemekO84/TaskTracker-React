@@ -14,6 +14,9 @@ import Settings from './pages/Settings';
 import DirectTasks from './pages/DirectTasks';
 import Login from './pages/Login';
 import Singup from './pages/Signup';
+import Appearance from './pages/Appearance';
+import ProfileSettings from './pages/ProfileSettings';
+import ProfileStats from './pages/ProfileStats';
 
 
 function App() {
@@ -28,9 +31,10 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/Tasks" element={<Tasks />} />
                 <Route path="/Settings" element={<Settings />}>
-                  <Route path='Appearence' element={<Home />}/>
-                  <Route index element={<Home />}/>
-                  <Route path='Stats' element={<Home />}/>
+                  <Route path='Appearance' element={<Appearance />}/>
+                  <Route index element={<ProfileSettings />}/>
+                  <Route path='ProfileSettings' element={<ProfileSettings />}/>
+                  <Route path='Stats' element={<ProfileStats />}/>
                 </Route>
                 
                 <Route path="/DirectTasks/:listId" element={<DirectTasks />} />

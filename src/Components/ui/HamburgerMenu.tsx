@@ -39,9 +39,7 @@ export function HamburgerMenu() {
           <div className="grid grid-cols-1 text-center gap-4 text-3xl">
             <div className="border-2 border-purple-900 p-4 rounded-md linkHighlight">
               <SheetClose asChild>
-                <Link to="Signup">
-                Sign Up
-                </Link>
+                <Link to="Signup">Sign Up</Link>
               </SheetClose>
             </div>
             <div className="border-2 border-purple-900 p-4 rounded-md linkHighlight">
@@ -81,7 +79,19 @@ export function HamburgerMenu() {
           <div>
             <div className="flex gap-2 justify-center items-center text-3xl border-2 p-4 rounded-md border-stone-800 divBorderHover">
               <Switch onClick={changeTheme} size="default" />
-              {theme === "light" ? <Sun /> : <Moon />}
+              <div
+                className="transition transform duration-500 ease-in-out"
+                style={{
+                  transform:
+                    theme === "dark" ? "rotate(0deg)" : "rotate(360deg)",
+                }}
+              >
+                {theme === "dark" ? (
+                  <Moon />
+                ) : (
+                  <Sun className="text-yellow-500" />
+                )}
+              </div>
             </div>
           </div>
         </div>

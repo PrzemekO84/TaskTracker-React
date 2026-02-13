@@ -127,6 +127,10 @@
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+  *, *::before, *::after {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-duration: 300ms;
+  }
 }
 
 @utility linkHighlight {
@@ -151,6 +155,10 @@
 
 @utility button {
   @apply border-2 border-black bg-purple-950 rounded-xl p-3 cursor-pointer text-foreground hover:text-white transition duration-500 ease-in-out
+}
+
+@utility settingsNavLink {
+  @apply border-2 md:text-xl px-4 py-3 lg:text-2xl rounded-md
 }
 
 /*  */

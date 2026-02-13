@@ -31,10 +31,16 @@ function Header() {
             <Link className=" p-2 rounded-xl linkHighlight " to="/">
               Home
             </Link>
-            <Link className=" p-2 rounded-xl linkHighlight text-white" to="/Tasks">
+            <Link
+              className=" p-2 rounded-xl linkHighlight text-white"
+              to="/Tasks"
+            >
               Tasks
             </Link>
-            <Link className=" p-2 rounded-xl linkHighlight text-white" to="Settings">
+            <Link
+              className=" p-2 rounded-xl linkHighlight text-white"
+              to="Settings"
+            >
               Settings
             </Link>
           </div>
@@ -42,19 +48,30 @@ function Header() {
 
         <div className="hidden sm:flex gap-4 justify-center items-center mr-1 text-xl mt-1">
           <div className="border-2 border-purple-900 p-2 rounded-xl linkHighlight text-white">
-            <Link to={"/Signup"}> <button>Sign Up</button> </Link>
+            <Link to={"/Signup"}>
+              {" "}
+              <button>Sign Up</button>{" "}
+            </Link>
           </div>
           <div className="border-2 border-purple-900 p-2 rounded-xl linkHighlight text-white">
-            <Link to={"/Login"}> <button>Sign In</button> </Link>
+            <Link to={"/Login"}>
+              {" "}
+              <button>Sign In</button>{" "}
+            </Link>
           </div>
           <div className="flex gap-2 justify-center items-center">
-            <Switch onClick={changeTheme} className="border border-whites" />
-            {theme === "light" ? <Sun className="text-yellow-500" /> : <Moon />}
+            <Switch onClick={changeTheme} className="border border-whites" checked={theme === "light"}/>
+            <div
+              className="transition transform duration-500 ease-in-out"
+              style={{transform: theme === "dark" ? "rotate(0deg)" : "rotate(360deg)"}}
+            >
+              {theme === "dark" ? <Moon /> : <Sun  className="text-yellow-500"/>}
+            </div>
           </div>
         </div>
 
         <div className="flex sm:hidden items-center mt-2">
-          <HamburgerMenu />   
+          <HamburgerMenu />
         </div>
       </div>
     </div>
