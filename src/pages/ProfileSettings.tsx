@@ -81,7 +81,7 @@ function ProfileSettings() {
         </div>
         <div
           className={cn(
-            "grid transition-all ease-in-out duration-300",
+            "grid transition-all duration-300 ease-in-out",
             openedSection === "password"
               ? "grid-rows-[1fr]"
               : "grid-rows-[0fr]",

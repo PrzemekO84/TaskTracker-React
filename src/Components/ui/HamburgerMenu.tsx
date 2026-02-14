@@ -29,9 +29,9 @@ export function HamburgerMenu() {
       <SheetContent>
         <SheetHeader>
           <SheetTitle className="flex items-center justify-center gap-2">
-            <h1 className="text-4xl font-semibold text-purple-800 text-shadow-md/10 text-shadow-white">
+            <p className="text-4xl font-semibold text-purple-800 text-shadow-md/10 text-shadow-white">
               Voyager
-            </h1>
+            </p>
             <CircleGauge className="mt-2" />
           </SheetTitle>
         </SheetHeader>

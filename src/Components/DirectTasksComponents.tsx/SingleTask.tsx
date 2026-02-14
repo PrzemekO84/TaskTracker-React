@@ -20,7 +20,7 @@ function SingleTask({
   completed,
   listId,
 }: RenderedTask) {
-  const { deleteTaskItem, setDailyCounter, setMonthlyCounter } = useListTaskContext();
+  const { deleteTaskItem, setDailyCounter, setMonthlyCounter, updateTaskByPriorityCounter } = useListTaskContext();
   const [newEditTaskWindow, setNewEditTaskWindow] = useState(false);
   const [done, isDone] = useState(false);
 
@@ -89,6 +89,7 @@ function SingleTask({
             onClick={async () => {
               setDailyCounter();
               setMonthlyCounter();
+              updateTaskByPriorityCounter(priority);
               await handleIsDone();
               deleteTaskItem(listId, taskId);
             }}

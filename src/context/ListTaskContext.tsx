@@ -1,4 +1,4 @@
-import type { List, Task, MonthlyCounter } from "@/Types/types";
+import type { List, Task, MonthlyCounter, Priority } from "@/Types/types";
 import { createContext, useContext, useEffect, useState } from "react";
 import type { TasksCounter } from "@/Types/types";
 import { initialData } from "@/utils/startingData";
@@ -19,6 +19,9 @@ type ListTaskContextType = {
     dailyCount: number;
     setMonthlyCounter: () => void;
     monthlyCount: {[key: string]: number};
+    getTotalCompletedTaskLength: () => number;
+    updateTaskByPriorityCounter: (priority: Priority) => void;
+    taskByPriorityCounter: TasksCounter;
 };
 
 
@@ -31,6 +34,51 @@ export const ListTaskProvider = ({ children } : {children: React.ReactNode}) => 
 
         return initialData;
     });
+
+    //testData
+    const [taskByPriorityCounter, setTaskByPriorityCounter] = useState<TasksCounter>({
+      criticalTasks: 2,
+      highTasks: 2,
+      mediumTasks: 2,
+      lowTasks: 2,
+    });
+
+    function updateTaskByPriorityCounter(priority : Priority){
+      switch(priority){
+        case "Critical":  
+        setTaskByPriorityCounter((prevCount) => {
+          return {
+            ...prevCount,
+            criticalTasks: prevCount.criticalTasks + 1
+          }
+        });
+        break;
+        case "High": 
+        setTaskByPriorityCounter((prevCount) => {
+          return {
+            ...prevCount,
+            highTasks: prevCount.highTasks + 1
+          }
+        });
+        break;
+        case "Medium": 
+        setTaskByPriorityCounter((prevCount) => {
+          return {
+            ...prevCount,
+            mediumTasks: prevCount.mediumTasks + 1
+          }
+        });
+        break;
+        case "Low": 
+        setTaskByPriorityCounter((prevCount) => {
+          return {
+            ...prevCount,
+            lowTasks: prevCount.lowTasks + 1
+          }
+        });
+        break;
+      }
+    }
 
     useEffect(() => {
       localStorage.setItem("listInfo", JSON.stringify(listInfo));
@@ -198,10 +246,19 @@ export const ListTaskProvider = ({ children } : {children: React.ReactNode}) => 
       return tasks;
     }
 
+    function getTotalCompletedTaskLength(){
+
+      const taskCount = Object.values(monthlyCount);
+      const totalTaskCount = taskCount.reduce((acc, current) => acc + current)
+
+      return totalTaskCount;
+    }
+
     return (
         <ListTaskContext.Provider value={{listInfo, addListItem, editListItem, deleteListItem, addTaskItem, editTaskItem, 
         deleteTaskItem, getTotalTasksLength, setMonthlyCounter,
-        getTasksLengthByPriority, setDailyCounter, dailyCount, monthlyCount}}>
+        getTasksLengthByPriority, setDailyCounter, dailyCount, monthlyCount, getTotalCompletedTaskLength,
+        updateTaskByPriorityCounter, taskByPriorityCounter}}>
             {children}
         </ListTaskContext.Provider>
     )
