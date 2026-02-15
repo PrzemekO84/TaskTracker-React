@@ -1,4 +1,6 @@
 import { useListTaskContext } from "@/context/ListTaskContext";
+import { useMemo, useState } from "react";
+import { cn } from "@/lib/utils";
 
 function Name() {
   const { listInfo, getTotalTasksLength, getTasksLengthByPriority } = useListTaskContext();
@@ -6,13 +8,23 @@ function Name() {
   const tasksLength = getTotalTasksLength();
   const priorityTasksLength = getTasksLengthByPriority();
 
+  const gridCounter = [
+  listInfo.length > 0,
+  tasksLength > 0,
+  priorityTasksLength.criticalTasks > 0,
+  priorityTasksLength.highTasks > 0,
+].filter(Boolean).length;
+
+console.log(gridCounter);
+
+
   return (
     <div className="flex flex-col justify-center items-center gap-5">
       <h1 className="text-6xl">Hello Przemek</h1>
       {listInfo.length > 0 ? (
         <>
           <h2 className="text-4xl">You have:</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+          <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
             <div className="nameTaskInfo buttonHighLight">
               <p>{listInfo.length} {listInfo.length > 1 ? "Lists" : "List"}</p>
             </div>

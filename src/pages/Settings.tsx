@@ -7,13 +7,13 @@ import { cn } from "@/lib/utils";
 function Settings(){
 
     return (
-      <div className="flex gap-1 border w-full mx-1">
-        <nav className="flex flex-col gap-4 border border-yellow-500 py-1">
+      <div className="flex gap-1 border-2 w-full my-1 mx-1 rounded-md">
+        <nav className="flex flex-col gap-4 border py-1">
           <NavLink
             to=""
             end
             className={({ isActive }) => {
-              return cn("settingsNavLink", isActive && "dark:text-purple-800 dark:bg-background text-purple-500 bg-stone-300");
+              return cn("settingsNavLink divBorderHover", isActive && "dark:text-purple-800 dark:bg-background text-purple-500 bg-stone-300");
             }}
           >
             Profile Settings
@@ -21,7 +21,7 @@ function Settings(){
           <NavLink
             to={"Appearance"}
             className={({ isActive }) => {
-              return cn("settingsNavLink", isActive && "dark:text-purple-800 dark:bg-background text-purple-500 bg-stone-300");
+              return cn("settingsNavLink divBorderHover", isActive && "dark:text-purple-800 dark:bg-background text-purple-500 bg-stone-300");
             }}
           >
             Appearance
@@ -29,14 +29,14 @@ function Settings(){
           <NavLink
             to={"Stats"}
             className={({ isActive }) => {
-              return cn("settingsNavLink", isActive && "dark:text-purple-800 dark:bg-background text-purple-500 bg-stone-300");
+              return cn("settingsNavLink divBorderHover", isActive && "dark:text-purple-800 dark:bg-background text-purple-500 bg-stone-300");
             }}
           >
             Stats
           </NavLink>
         </nav>
 
-        <main className="flex-1 border border-purple-500">
+        <main className="flex-1 border rounded-md">
           <Outlet />
         </main>
       </div>
