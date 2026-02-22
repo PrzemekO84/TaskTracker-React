@@ -47,4 +47,21 @@ export type MonthlyCounter = {
 
 export type SortType = "createdNewest" | "createdOldest" | "priorityHighest" | "priorityLowest" | "deadlineSoonest" | "deadlineLatest" | "default";
 
+export type RegisterUser = {
+  username: string, 
+  email: string,
+  password: string
+}
+
+export type LoginUser = {
+  email_username: string, 
+  password: string
+}
+
+export type ErrorMessage = {
+  isError: boolean,
+  message: string,
+  status: "error" | "success" | null
+}
+
 

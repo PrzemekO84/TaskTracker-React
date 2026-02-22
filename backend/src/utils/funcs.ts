@@ -8,10 +8,18 @@ export async function hashPassword(password: string){
         const hashedPassword = await bcrypt.hash(password, saltRounds);
         return hashedPassword;
     } catch (error: any) {
-        if (error.code === '23505') { 
-            console.log("User already exists in the database.");
-        }
         console.log("Error during hashing");
         console.log(error);
     }
+}
+
+export async function comparePasswords(password: string, hashedPassword: string){
+    try {
+        const result = await bcrypt.compare(password, hashedPassword);
+        return result;
+    } catch (err) {
+        console.log(err);
+        throw new Error("Password comparison failed");
+    }
+
 }

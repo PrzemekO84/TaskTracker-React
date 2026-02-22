@@ -1,3 +1,4 @@
+import { QueryResult } from "pg";
 import { db } from "./Db";
 
 export const createTables = async () => {
@@ -76,12 +77,27 @@ export const createTables = async () => {
 
 export const saveUserToDb = async (username: string, email:string, password: string) => {
     try {
-        await db.query("INSERT INTO users (username, email, password) VALUES ($1, $2, $3)",
+        const result = await db.query("INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING user_id, username, email",
             [username, email, password]
         );
         console.log("Succesfully saved user into the database.");
-    } catch (error) {
-        console.log("Error during saving user into database");
-        console.log(error);
+        return result;
+    } catch (error: any) {
+        if(error.code === "23505"){
+            throw new Error("DUPLICATE");
+        }
+        throw Error("Error during saving the user.")
     }
+}
+
+export const findUser = async (email_username: string) => {
+    const result = await db.query("SELECT password FROM users WHERE username = $1 OR email = $1",
+        [email_username]
+    )
+
+    if(result.rows.length === 0){
+        throw new Error("User not found");
+    }
+
+    return result.rows[0]
 }
