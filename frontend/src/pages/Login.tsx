@@ -3,8 +3,9 @@ import { loginUserApi } from "@/Services/ApiService";
 import type { ErrorMessage, LoginUser} from "@/Types/types";
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useUserContext } from "@/context/UserContext";
 
 function Login(){
   const [loginCredentials, setloginCredentials] = useState<LoginUser>({
@@ -17,6 +18,9 @@ function Login(){
       message: "",
       status: null
     });
+
+    const { loginUser } = useUserContext();
+    const navigate = useNavigate();
   
     const handleLogin = async (e: React.FormEvent) => {
       e.preventDefault();
@@ -34,11 +38,17 @@ function Login(){
           })
         }
         else if(result.status === 201){
+          loginUser({username: result.data.username, token: result.data.token})
+          localStorage.setItem("token", result.data.token);
+          localStorage.setItem("username", result.data.username);
           setErrorMessage({
             isError: true,
             message: result.data.message,
             status: "success"
           })
+          setTimeout(() => {
+            navigate("/")
+          }, 1000)
         }
   
         setTimeout(() => {

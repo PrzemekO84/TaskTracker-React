@@ -11,7 +11,7 @@ function Signup() {
   const [registerCredentials, setRegisterCredentials] = useState<RegisterUser>({
     username: "",
     email: "",
-    password: "",
+    password: ""
   });
 
   const [errorMessage, setErrorMessage] = useState<ErrorMessage>({
@@ -34,6 +34,11 @@ function Signup() {
         })
       }
       else if(result.status === 201){
+        setRegisterCredentials({
+          username: "",
+          email: "",
+          password: ""
+        });
         setErrorMessage({
           isError: true,
           message: result.data.message,

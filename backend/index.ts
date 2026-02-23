@@ -1,4 +1,3 @@
-console.log("test");
 import express, {Request, Response} from "express";
 import cors from "cors"
 import dotenv from "dotenv";
@@ -8,6 +7,8 @@ import type { LoginUser, RegisterUser } from "./src/Types/types";
 import { hashPassword, comparePasswords } from "./src/utils/funcs";
 import { saveUserToDb } from "./DbQueries";
 import { findUser } from "./DbQueries";
+import jwt from "jsonwebtoken"
+import { auth } from "./src/utils/AuthMiddleware";
 
 dotenv.config();
 
@@ -26,7 +27,6 @@ app.post("/api/register", async (req: Request<RegisterUser>, res: Response) => {
 
     try {
         const hashedPassword = await hashPassword(password);
-
         if (!hashedPassword) {
             return res.status(500).json({ 
                 error: "Error during hashing the password" 
@@ -38,10 +38,11 @@ app.post("/api/register", async (req: Request<RegisterUser>, res: Response) => {
             return res.status(400).json({ 
                 error: "Not able to save a user to the database" 
             });
+
         }
 
         res.status(201).json({
-            message: "Successfully created user.",
+            message: "Successfully created user. Please log in.",
             user: result.rows[0]
         }); 
     } catch (error: any) {
@@ -58,14 +59,26 @@ app.post("/api/login", async (req:Request<LoginUser>, res: Response) => {
     const { email_username, password } = req.body;
     
     try {
-        const hashedPassword = await findUser(email_username);
-        if(!hashedPassword){
+        const user = await findUser(email_username);
+        console.log(user.username);
+        if(!user){
             throw Error;
         }
-        const match = await comparePasswords(password, hashedPassword.password);
+
+        const match = await comparePasswords(password, user.password);
         if(match){
+            const token = jwt.sign({
+                user_id: user.user_id,
+                username: user.username,
+                email: user.email,
+            },
+                process.env.JWT_SECRET!,
+                {expiresIn: '1h'}
+            );
             res.status(201).json({
-                message: "Successfully loged in."
+                message: "Successfully loged in.",
+                token: token,
+                username: user.username
             })
         }
         else{
@@ -77,6 +90,12 @@ app.post("/api/login", async (req:Request<LoginUser>, res: Response) => {
             error: "Incorrect Credentials."
         })
     }
+});
+
+app.get("/test", auth, (req: Request, res: Response) => {
+    res.json({
+        message: "Chyba dziala xd"
+    })
 })
 
 app.listen(PORT, async () => {

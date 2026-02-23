@@ -7,15 +7,13 @@ import { CircleGauge } from "lucide-react";
 import { Menu } from "lucide-react";
 import { HamburgerMenu } from "./Components/ui/HamburgerMenu";
 import { useThemeContext } from "./context/ThemeContext";
-
-
-//Mozna by dodac hamburger jesli zmniejszy sie jeszcze bardziej
-//Zmiana ikony przy dark/light mode
-// Chyba done - Trzeba cos wymyslic z home/task/settings bo nie sa wycentrowane idealnie przez duzy prawy div ale to po dark mode zeby lepiej to dostosowac
+import { useUserContext } from "./context/UserContext";
+import { CircleUserRound } from "lucide-react";
 
 function Header() {
 
   const { theme, changeTheme } = useThemeContext();
+  const { user, logoutUser } = useUserContext();
 
   return (
     <div className="border-b-2 border-stone-900 pb-6 shadow-md shadow-violet-300/20 bg-stone-900">
@@ -27,7 +25,7 @@ function Header() {
             </h1>
             <CircleGauge className="mt-3 text-white" />
           </Link>
-          <div className="hidden sm:flex gap-5 justify-center mt-1 items-center text-xl lg:text-2xl 2xl:text-3xl text-white">
+          <div className="hidden md:flex gap-5 justify-center mt-1 items-center text-xl lg:text-2xl 2xl:text-3xl text-white">
             <Link className=" p-2 rounded-xl linkHighlight " to="/">
               Home
             </Link>
@@ -46,31 +44,60 @@ function Header() {
           </div>
         </div>
 
-        <div className="hidden sm:flex gap-4 justify-center items-center mr-1 text-xl mt-1">
-          <div className="border-2 border-purple-900 p-2 rounded-xl linkHighlight text-white">
-            <Link to={"/Signup"}>
-              {" "}
-              <button>Sign Up</button>{" "}
-            </Link>
-          </div>
-          <div className="border-2 border-purple-900 p-2 rounded-xl linkHighlight text-white">
-            <Link to={"/Login"}>
-              {" "}
-              <button>Sign In</button>{" "}
-            </Link>
-          </div>
+        <div className="hidden md:flex gap-4 justify-center items-center mr-1 text-xl mt-1">
+          {user.username !== "" ? (
+            <>
+            <div className="border-2 cursor-pointer border-purple-900 p-2 rounded-xl text-white">
+              <Link
+                className="linkHighlight flex items-center gap-2"
+                to={"/Settings"}
+              >
+                {user.username} <CircleUserRound />
+              </Link>
+            </div>
+            <div
+            onClick={logoutUser}
+            className="cursor-pointer border border-red-500 bg-red-900 p-2 
+            rounded-xl text-white transition duration-500 ease-in-out hover:bg-red-800" >Logout</div>
+            </>
+          ) : (
+            <>
+              <div className="border-2 border-purple-900 p-2 rounded-xl text-white">
+                <Link className="linkHighlight" to={"/Signup"}>
+                  {" "}
+                  <button>Sign Up</button>{" "}
+                </Link>
+              </div>
+              <div className="border-2 border-purple-900 p-2 rounded-xl text-white">
+                <Link className="linkHighlight" to={"/Login"}>
+                  {" "}
+                  <button>Sign In</button>{" "}
+                </Link>
+              </div>
+            </>
+          )}
           <div className="flex gap-2 justify-center items-center">
-            <Switch onClick={changeTheme} className="border border-whites" checked={theme === "light"}/>
+            <Switch
+              onClick={changeTheme}
+              className="border border-whites"
+              checked={theme === "light"}
+            />
             <div
               className="transition transform duration-500 ease-in-out"
-              style={{transform: theme === "dark" ? "rotate(0deg)" : "rotate(360deg)"}}
+              style={{
+                transform: theme === "dark" ? "rotate(0deg)" : "rotate(360deg)",
+              }}
             >
-              {theme === "dark" ? <Moon /> : <Sun  className="text-yellow-500"/>}
+              {theme === "dark" ? (
+                <Moon />
+              ) : (
+                <Sun className="text-yellow-500" />
+              )}
             </div>
           </div>
         </div>
 
-        <div className="flex sm:hidden items-center mt-2">
+        <div className="flex md:hidden items-center mt-2">
           <HamburgerMenu />
         </div>
       </div>

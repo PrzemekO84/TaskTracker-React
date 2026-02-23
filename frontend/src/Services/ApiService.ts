@@ -1,6 +1,17 @@
 import type { RegisterUser, LoginUser } from "@/Types/types";
 
+
 const API_URL = `http://localhost:3000/api`;
+
+const token = localStorage.getItem('token');
+
+// const response = await fetch('/api/tasks', {
+//   method: 'POST',
+//   headers: {
+//     'Content-Type': 'application/json',
+//     'Authorization': `Bearer ${token}` // <--- OTO TWOJA KOPERTA!
+//   },
+// });
 
 export async function registerUserApi(userCredentials: RegisterUser){
     const response = await fetch(`${API_URL}/register`, {

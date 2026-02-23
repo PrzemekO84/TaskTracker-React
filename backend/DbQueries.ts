@@ -12,16 +12,6 @@ export const createTables = async () => {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
     )`;
 
-    const userStats = `CREATE TABLE IF NOT EXISTS stats (
-        stat_id SERIAL PRIMARY KEY, 
-        user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
-        total_tasks INTEGER DEFAULT 0,
-        critical_tasks INTEGER DEFAULT 0,
-        high_tasks INTEGER DEFAULT 0,
-        medium_tasks INTEGER DEFAULT 0,
-        low_tasks INTEGER DEFAULT 0
-    )`;
-
     const monthlyStats = `CREATE TABLE IF NOT EXISTS monthly_stats (
         id SERIAL PRIMARY KEY,
         user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
@@ -57,9 +47,6 @@ export const createTables = async () => {
         await db.query(usersTable);
         console.log("Created Users Table");
 
-        await db.query(userStats);
-        console.log("Created User Stats Table");
-
         await db.query(monthlyStats);
         console.log("Created Monthly Data Table");
 
@@ -91,7 +78,7 @@ export const saveUserToDb = async (username: string, email:string, password: str
 }
 
 export const findUser = async (email_username: string) => {
-    const result = await db.query("SELECT password FROM users WHERE username = $1 OR email = $1",
+    const result = await db.query("SELECT password, user_id, username, email FROM users WHERE username = $1 OR email = $1",
         [email_username]
     )
 
