@@ -1,5 +1,7 @@
 import type { List, Task, MonthlyCounter, Priority } from "@/Types/types";
 import { createContext, useContext, useEffect, useState } from "react";
+import { useUserContext } from "./UserContext";
+import { getLists } from "@/Services/ApiService";
 import type { TasksCounter } from "@/Types/types";
 import { initialData } from "@/utils/startingData";
 import { startingMonthlyData } from "@/utils/startingData";
@@ -24,16 +26,31 @@ type ListTaskContextType = {
     taskByPriorityCounter: TasksCounter;
 };
 
+const token = localStorage.getItem("token");
+
 
 export const ListTaskContext = createContext<ListTaskContextType | undefined>(undefined);
 
 export const ListTaskProvider = ({ children } : {children: React.ReactNode}) => {
-    const [listInfo, setListInfo] = useState<List[]>(() => {
-        const saved = localStorage.getItem("list_data");
-        if (saved) return JSON.parse(saved);
+    const [listInfo, setListInfo] = useState<List[]>([])
 
-        return initialData;
-    });
+    useEffect(() => {
+      const fetchedLists = async () => {
+        try {
+          const result = await getLists();
+          if(result.status === 201){
+            setListInfo(result.data)  
+          }
+        } catch (error) {
+          console.log("Error during getting the lists");
+          console.log(error);
+        }
+      }
+
+      if(token){
+        fetchedLists();
+      }
+    }, [token]);
 
     //testData
     const [taskByPriorityCounter, setTaskByPriorityCounter] = useState<TasksCounter>({

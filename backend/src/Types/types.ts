@@ -1,3 +1,4 @@
+export type Priority = "Critical" | "High" | "Medium" | "Low";
 
 export type RegisterUser = {
     username: string,
@@ -8,4 +9,23 @@ export type RegisterUser = {
 export type LoginUser = {
   email_username: string, 
   password: string
+}
+
+export type List = {
+  list_id: string,
+  name: string,
+  priority: Priority,
+  created_at: string,
+  until: string,
+  time: string
+}
+
+export type Task = {
+  task_id: string,
+  list_id: string,
+  name: string,
+  priority: Priority,
+  created_at: Date,
+  until: Date,
+  time: string
 }

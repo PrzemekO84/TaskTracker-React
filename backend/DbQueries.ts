@@ -1,5 +1,6 @@
 import { QueryResult } from "pg";
 import { db } from "./Db";
+import { List } from "./src/Types/types";
 
 export const createTables = async () => {
 
@@ -82,9 +83,24 @@ export const findUser = async (email_username: string) => {
         [email_username]
     )
 
-    if(result.rows.length === 0){
+    if (result.rows.length === 0) {
         throw new Error("User not found");
     }
 
-    return result.rows[0]
+    return result.rows[0];
+
+}
+
+export const getLists = async (user_id: string) => {
+    const result = await db.query("SELECT * from lists WHERE user_id = $1",
+        [user_id]
+    )
+
+    return result.rows;
+}
+ 
+export const addList = async (list: List, user_id: string) => {
+    await db.query("INSERT INTO lists (list_id, user_id, name, priority, created_at, until, time) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+        [list.list_id, user_id, list.name, list.priority, list.created_at, list.until, list.time]
+    )
 }
