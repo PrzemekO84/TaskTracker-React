@@ -1,21 +1,20 @@
 export type Task = {
   id: string;
+  list_id: string
   name: string;
   priority: Priority;
   created: string;
   until: string;
   time: string;
-  completed: boolean;
 };
 
 export type List = {
-  id: string;
+  list_id: string;
   name: string;
   priority: Priority; 
   created: string;
   until: string;
   time: string;
-  tasks: Task[]; 
 };
 
 export type RenderedTask = {

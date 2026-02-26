@@ -104,3 +104,11 @@ export const addList = async (list: List, user_id: string) => {
         [list.list_id, user_id, list.name, list.priority, list.created_at, list.until, list.time]
     )
 }
+
+export const getTasks = async (list_id: string) => {
+    const result = await db.query("SELECT * FROM tasks WHERE list_id = $1", 
+        [list_id]
+    )
+
+    return result.rows;
+}

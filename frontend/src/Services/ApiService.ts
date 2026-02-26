@@ -73,3 +73,20 @@ export async function addList(list: List){
         data: data
     }
 }
+
+export async function getTasks(list_id: string){
+    const response = await fetch(`${API_URL}/getTasks`, {
+        method: "GET",
+        headers: {
+            "Content-type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(list_id)
+    });
+    const data = await response.json();
+    return {
+        status: response.status,
+        data: data
+    }
+
+}
