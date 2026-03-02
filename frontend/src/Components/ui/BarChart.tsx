@@ -41,25 +41,20 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export function ChartBarDefault() {
-  const { monthlyCount } = useListTaskContext();
+  const { taskDashboardData } = useListTaskContext();
+  const monthlyCount = taskDashboardData.monthlyTaskData
 
+  function createChartData(){
+    const chartData = monthlyCount.map(month => ({
+      month: getMonthName(month.month),
+      desktop: month.count
+    }));
+
+    return chartData
+  }
 
   const chartData = useMemo(() => {
-    return Object.keys(monthlyCount)
-    .sort((a, b) => {
-      const monthA = parseInt(a.split("-")[0]);
-      const monthB = parseInt(b.split("-")[0]);
-
-      return monthA - monthB
-    })
-    .map((key) => {
-      const monthNum = key.split("-");
-      const month = getMonthName(parseInt(monthNum[0]));
-      return {
-        month: month.slice(0, 3),
-        desktop: monthlyCount[key],
-      };
-    });
+    return createChartData();
   }, [monthlyCount]);
 
 

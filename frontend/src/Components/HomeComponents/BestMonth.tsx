@@ -5,22 +5,26 @@ import { useEffect, useMemo } from "react";
 
 
 function BestMonth(){
-  const { monthlyCount } = useListTaskContext();
+  const { taskDashboardData } = useListTaskContext();
+  const monthlyCount = taskDashboardData.monthlyTaskData;
 
   function bestMonth() {
-    if (Object.keys(monthlyCount).length > 0) {
-      const sortedValues = Object.entries(monthlyCount).sort(
-        ([, a], [, b]) => b - a,
-      );
-      const monthNum: string[] = sortedValues[0].toString().split("-");
-      const monthTaskNumber: string = sortedValues[0].toString().split(",")[1];
-      const month: string = getMonthName(parseInt(monthNum[0]));
+    if (monthlyCount.length > 0) {
+      const sortedMonths = [...monthlyCount].sort((a, b) => {
+        return b.count - a.count;
+      });
 
-      return { monthTaskNumber, month };
+      const month = getMonthName(sortedMonths[0].month);
+      const bestMonthCounter = sortedMonths[0].count
+
+      return { 
+        bestMonthCounter, 
+        month 
+      };
     }
 
     return {
-      monthTaskNumber: "",
+      bestMonthCounter: 0,
       month: "",
     };
   }
@@ -29,7 +33,7 @@ function BestMonth(){
     return bestMonth();
   }, [monthlyCount]);
 
-  const { monthTaskNumber, month } = bestMonthValue;
+  const { bestMonthCounter, month } = bestMonthValue;
 
   return (
     <div className="h-full flex flex-col gap-4 items-center justify-center chartDiv text-3xl text-center divBorderHover">
@@ -40,7 +44,7 @@ function BestMonth(){
       </div>
       <p>Number of completed tasks:</p>
       <div className="flex gap-2 items-center">
-        <p className="font-extrabold text-purple-800 text-4xl">{monthTaskNumber}</p>
+        <p className="font-extrabold text-purple-800 text-4xl">{bestMonthCounter}</p>
         <Rocket className="mt-1 text-yellow-400" />
       </div>
       <div className="flex gap-2 items-center">

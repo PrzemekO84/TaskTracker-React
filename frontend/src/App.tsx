@@ -22,8 +22,8 @@ import ProfileStats from "./pages/ProfileStats";
 function App() {
   return (
     <div className="min-h-screen flex flex-col">
-      <ListTaskProvider>
-        <UserContextProvider>
+      <UserContextProvider>
+        <ListTaskProvider>
           <ThemeContextProvider>
             <Router>
               <Header />
@@ -55,8 +55,8 @@ function App() {
               <Footer />
             </Router>
           </ThemeContextProvider>
-        </UserContextProvider>
-      </ListTaskProvider>
+        </ListTaskProvider>
+      </UserContextProvider>
     </div>
   );
 }

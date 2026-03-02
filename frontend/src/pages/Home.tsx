@@ -6,11 +6,11 @@ function Home(){
 
     const { user } = useUserContext();
 
-    console.log(user);
     return (
         <div className="flex flex-col items-center w-full mx-10 my-10">
             <Name />
-            <Charts />
+
+            {user.username && <Charts />}
         </div>
     )
 }

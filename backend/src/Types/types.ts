@@ -28,4 +28,11 @@ export type Task = {
   created_at: Date,
   until: Date,
   time: string
+  
+  completed: boolean
+}
+
+export type tasksData = {
+  count: number, 
+  priority: Priority
 }

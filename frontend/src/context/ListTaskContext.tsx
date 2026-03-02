@@ -1,7 +1,15 @@
-import type { List, Task, MonthlyCounter, Priority } from "@/Types/types";
+import type { 
+  List, 
+  Task, 
+  MonthlyCounter, 
+  Priority, 
+  TaskData,
+  dashboardTaskInfo,
+  AllTaskData
+} from "@/Types/types";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useUserContext } from "./UserContext";
-import { getLists } from "@/Services/ApiService";
+import { getLists, getAllTaskData } from "@/Services/ApiService";
 import type { TasksCounter } from "@/Types/types";
 import { initialData } from "@/utils/startingData";
 import { startingMonthlyData } from "@/utils/startingData";
@@ -9,6 +17,8 @@ import { startingMonthlyData } from "@/utils/startingData";
 
 type ListTaskContextType = {
     listInfo: List[],
+    taskInfo: Task[],
+    taskDashboardData: AllTaskData
     // addListItem: (list: List) => void,
     // editListItem: (updateItem: List, listId: string) => void,
     // deleteListItem: (listId: string) => void,
@@ -26,15 +36,24 @@ type ListTaskContextType = {
     // taskByPriorityCounter: TasksCounter;
 };
 
-const token = localStorage.getItem("token");
-
-
 export const ListTaskContext = createContext<ListTaskContextType | undefined>(undefined);
 
 export const ListTaskProvider = ({ children } : {children: React.ReactNode}) => {
-    const [listInfo, setListInfo] = useState<List[]>([])
+    const [listInfo, setListInfo] = useState<List[]>([]);
+    const [taskInfo, setTaskInfo] = useState<Task[]>([]);
+    const [taskDashboardData, setTaskDashboardData] = useState<AllTaskData>({
+      undoneTaskData: {criticalTasks: 0, highTasks: 0, mediumTasks: 0, lowTasks: 0},
+      doneTaskData: {criticalTasks: 0, highTasks: 0, mediumTasks: 0, lowTasks: 0},
+      monthlyTaskData: [],
+      dailyTaskData: 0
+    });
+
+    const { user } = useUserContext();
 
     useEffect(() => {
+
+      console.log("O TEJ PORZE KAZDY WYPIC MOZE");
+
       const fetchedLists = async () => {
         try {
           const result = await getLists();
@@ -47,10 +66,98 @@ export const ListTaskProvider = ({ children } : {children: React.ReactNode}) => 
         }
       }
 
-      if(token){
-        fetchedLists();
+      const fetchedDashboard = async () => {
+        try {
+          const result = await allTaskData();
+          console.log("UgBuga");
+          console.log(result);
+          setTaskDashboardData(result)
+        } catch (error) {
+          console.log("Error druing getting the tasks");
+          console.log(error);
+        }
       }
-    }, [token]);
+
+      if(user.token){
+        fetchedLists();
+        fetchedDashboard();
+      }
+      
+    }, [user.token]);
+
+    async function allTaskData() {
+
+      const result = await getAllTaskData();
+      const data = result.data.data;
+
+      console.log("JOL JOL");
+      console.log(data);
+
+      let undoneTaskPriorityCounter: TasksCounter = {
+        criticalTasks: 0,
+        highTasks: 0,
+        mediumTasks: 0,
+        lowTasks: 0
+      }
+
+      let doneTaskPriorityCounter: TasksCounter = {
+        criticalTasks: 0,
+        highTasks: 0,
+        mediumTasks: 0,
+        lowTasks: 0
+      }
+
+      
+      data.undoneTaskData.forEach((data: TaskData) => {
+        switch(data.priority){
+            case "Critical":
+              undoneTaskPriorityCounter.criticalTasks = parseInt(data.taskCount);
+              break;
+            case "High":
+              undoneTaskPriorityCounter.highTasks = parseInt(data.taskCount);
+              break;
+            case "Medium":
+              undoneTaskPriorityCounter.mediumTasks = parseInt(data.taskCount);
+              break;
+            case "Low":
+              undoneTaskPriorityCounter.lowTasks = parseInt(data.taskCount);
+              break;
+          }
+      });
+
+      data.doneTaskData.forEach((data: TaskData) => {
+        switch(data.priority){
+            case "Critical":
+              doneTaskPriorityCounter.criticalTasks = parseInt(data.taskCount);
+              break;
+            case "High":
+              doneTaskPriorityCounter.highTasks = parseInt(data.taskCount);
+              break;
+            case "Medium":
+              doneTaskPriorityCounter.mediumTasks = parseInt(data.taskCount);
+              break;
+            case "Low":
+              doneTaskPriorityCounter.lowTasks = parseInt(data.taskCount);
+              break;
+          }
+      })
+
+      return {
+        undoneTaskData: undoneTaskPriorityCounter,
+        doneTaskData: doneTaskPriorityCounter,
+        monthlyTaskData: data.monthlyTaskData,
+        dailyTaskData: parseInt(data.dailyTaskData)
+      };
+        
+    }
+
+    // function getTotalCompletedTaskLength(){
+
+    //   const taskCount = Object.values(monthlyCount);
+    //   const totalTaskCount = taskCount.reduce((acc, current) => acc + current)
+
+    //   return totalTaskCount;
+    // }
 
     //testData
     // const [taskByPriorityCounter, setTaskByPriorityCounter] = useState<TasksCounter>({
@@ -228,51 +335,9 @@ export const ListTaskProvider = ({ children } : {children: React.ReactNode}) => 
     //   });
     // }
 
-    // function getTotalTasksLength(){
-    //     let counter: number = 0;
-    //     listInfo.forEach(list => {
-    //         counter += list.tasks.length;
-    //     });
-
-    //     return counter;
-    // }
-
-    // function getTasksLengthByPriority() {
-    //   let tasks: TasksCounter = {
-    //     criticalTasks: 0,
-    //     highTasks: 0,
-    //     mediumTasks: 0,
-    //     lowTasks: 0,
-    //   };
-
-    //   listInfo.forEach((list) => {
-    //     list.tasks.forEach((task) => {
-    //       switch (task.priority) {
-    //         case "Critical":
-    //           return tasks.criticalTasks++;
-    //         case "High":
-    //           return tasks.highTasks++;
-    //         case "Medium":
-    //           return tasks.mediumTasks++;
-    //         case "Low":
-    //           return tasks.lowTasks++;
-    //       }
-    //     });
-    //   });
-
-    //   return tasks;
-    // }
-
-    // function getTotalCompletedTaskLength(){
-
-    //   const taskCount = Object.values(monthlyCount);
-    //   const totalTaskCount = taskCount.reduce((acc, current) => acc + current)
-
-    //   return totalTaskCount;
-    // }
 
     return (
-        <ListTaskContext.Provider value={{listInfo}}>
+        <ListTaskContext.Provider value={{listInfo, taskInfo, taskDashboardData}}>
             {children}
         </ListTaskContext.Provider>
     )

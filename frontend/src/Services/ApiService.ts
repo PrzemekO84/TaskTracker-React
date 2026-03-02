@@ -47,7 +47,6 @@ export async function getLists(){
     const response = await fetch(`${API_URL}/getLists`, {
         method: "GET",
         headers: {
-            "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
         }
     });
@@ -67,7 +66,23 @@ export async function addList(list: List){
         },
         body: JSON.stringify(list)
     })
-    const data = response.json();
+    const data = await response.json();
+    return {
+        status: response.status,
+        data: data
+    }
+}
+
+export async function getAllTaskData(){
+    const response = await fetch(`${API_URL}/getAllTaskData`, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+    const data = await response.json();
+    console.log("XDD");
+    console.log(data);
     return {
         status: response.status,
         data: data
@@ -75,13 +90,11 @@ export async function addList(list: List){
 }
 
 export async function getTasks(list_id: string){
-    const response = await fetch(`${API_URL}/getTasks`, {
+    const response = await fetch(`${API_URL}/getTasks/${list_id}`, {
         method: "GET",
         headers: {
-            "Content-type": "application/json",
             "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify(list_id)
     });
     const data = await response.json();
     return {

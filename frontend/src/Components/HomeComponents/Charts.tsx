@@ -5,7 +5,12 @@ import { useListTaskContext } from "@/context/ListTaskContext";
 
 function Charts(){
 
-    const {monthlyCount} = useListTaskContext();
+    const { taskDashboardData } = useListTaskContext();
+    const monthlyCount = taskDashboardData.monthlyTaskData;
+
+    console.log(taskDashboardData);
+    console.log(monthlyCount);
+    console.log(monthlyCount.length);
     
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 mt-15 border-2 rounded-md 2xl:grid-cols-3 w-full gap-10 p-4">

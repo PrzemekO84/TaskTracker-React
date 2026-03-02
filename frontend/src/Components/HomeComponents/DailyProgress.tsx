@@ -8,7 +8,10 @@ import { Crown } from "lucide-react";
 function DailyProgress(){
   const max = 5;
 
-  const { dailyCount } = useListTaskContext();
+  const { taskDashboardData } = useListTaskContext();
+  const dailyCount = taskDashboardData.dailyTaskData
+
+  console.log(dailyCount);
 
     return (
       <div className="flex flex-col items-center justify-between chartDiv divBorderHover text-3xl gap-20">

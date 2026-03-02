@@ -6,6 +6,7 @@ export type Task = {
   created: string;
   until: string;
   time: string;
+  completed: boolean
 };
 
 export type List = {
@@ -61,6 +62,29 @@ export type ErrorMessage = {
   isError: boolean,
   message: string,
   status: "error" | "success" | null
+}
+
+
+export type dashboardTaskInfo = {
+  totalTaskCounter: number,
+  priorityTaskCounter : TasksCounter
+}
+
+export type AllTaskData = {
+  undoneTaskData: TasksCounter,
+  doneTaskData: TasksCounter
+  monthlyTaskData: monthlyTaskData[],
+  dailyTaskData: number
+}
+
+export type TaskData = {
+  priority: Priority,
+  taskCount: string
+}
+
+export type monthlyTaskData = {
+  month: number,
+  count: number
 }
 
 

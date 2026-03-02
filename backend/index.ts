@@ -5,7 +5,7 @@ import { db } from "./Db";
 import { createTables } from "./DbQueries";
 import type { LoginUser, RegisterUser, List, Task } from "./src/Types/types";
 import { hashPassword, comparePasswords } from "./src/utils/funcs";
-import { saveUserToDb, findUser, getLists, addList, getTasks } from "./DbQueries";
+import { saveUserToDb, findUser, getLists, addList, getTasks, getAllTaskData } from "./DbQueries";
 import jwt from "jsonwebtoken"
 import { auth } from "./src/utils/AuthMiddleware";
 
@@ -73,7 +73,7 @@ app.post("/api/login", async (req:Request<{}, {}, LoginUser>, res: Response) => 
                 email: user.email,
             },
                 process.env.JWT_SECRET!,
-                {expiresIn: '1h'}
+                {expiresIn: '1m'}
             );
             res.status(201).json({
                 message: "Successfully loged in.",
@@ -127,10 +127,27 @@ app.post("/api/addList", auth, async (req: Request<{}, {}, List>, res: Response)
     }
 });
 
-app.get("/api/getTasks", auth, async (req:Request, res: Response) => {
+app.get("/api/getAllTaskData", auth, async (req: Request, res: Response) => {
     try {
-        const list_id = req.body;
-        const result = await getTasks(list_id);
+        const user_id = (req as any).user.user_id;
+        const result = await getAllTaskData(user_id);
+        res.status(201).json({
+            message: "Succesfully fetched tasks data",
+            data: result
+        })
+    } catch (error) {
+        console.log("Error during getting Tasks data");
+        console.log(error);
+        res.status(400).json({
+            message: "Error during getting Tasks data"
+        })
+    }
+})
+
+app.get("/api/getTasks/:list_id", auth, async (req:Request<{list_id: string}>, res: Response) => {
+    try {
+        const list_id = req.params.list_id
+        const result = await getTasks(list_id); 
         res.status(201).json({
             message: "Succesfully fetched tasks data.",
             data: result
