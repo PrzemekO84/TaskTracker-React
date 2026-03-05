@@ -1,17 +1,36 @@
 import type { RegisterUser, LoginUser, List } from "@/Types/types";
-
+import axios from "axios";
 
 const API_URL = `http://localhost:3000/api`;
 
-const token = localStorage.getItem('token');
+const axiosInter = axios.create({
+    baseURL: API_URL
+});
 
-// const response = await fetch('/api/tasks', {
-//   method: 'POST',
-//   headers: {
-//     'Content-Type': 'application/json',
-//     'Authorization': `Bearer ${token}` // <--- OTO TWOJA KOPERTA!
-//   },
-// });
+axiosInter.interceptors.request.use((config) => {
+    const currentToken = localStorage.getItem("token")
+    if(currentToken){
+        config.headers.Authorization = `Bearer ${currentToken}`
+    };
+
+    return config;
+})
+
+axiosInter.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if(error.response && error.response.status === 401){
+            console.log("Session expired");
+            localStorage.removeItem("token");
+            localStorage.removeItem("username");
+            window.location.href = "/Login";
+            window.alert("Session has ended please log in again")
+        }
+        return Promise.reject(error);
+    }
+);
+
+const token = localStorage.getItem('token');
 
 export async function registerUserApi(userCredentials: RegisterUser){
     const response = await fetch(`${API_URL}/register`, {
@@ -44,62 +63,43 @@ export async function loginUserApi(userCredentials: LoginUser){
 }
 
 export async function getLists(){
-    const response = await fetch(`${API_URL}/getLists`, {
-        method: "GET",
-        headers: {
-            "Authorization": `Bearer ${token}`
-        }
-    });
-    const data = await response.json();
+
+    const response = await axiosInter.get(`${API_URL}/getLists`);
+
     return {
         status: response.status,
-        data: data
+        data: response.data
     }
 }
 
 export async function addList(list: List){
-    const response = await fetch(`${API_URL}/addList`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify(list)
-    })
-    const data = await response.json();
+
+    const response = await axiosInter.post(`${API_URL}/addList`);
+
     return {
         status: response.status,
-        data: data
+        data: response.data
     }
+    
+   
 }
 
 export async function getAllTaskData(){
-    const response = await fetch(`${API_URL}/getAllTaskData`, {
-        method: "GET",
-        headers: {
-            "Authorization": `Bearer ${token}`
-        }
-    });
-    const data = await response.json();
-    console.log("XDD");
-    console.log(data);
+    const response = await axiosInter.get(`${API_URL}/getAllTaskData`);
+
     return {
         status: response.status,
-        data: data
+        data: response.data
     }
 }
 
 export async function getTasks(list_id: string){
-    const response = await fetch(`${API_URL}/getTasks/${list_id}`, {
-        method: "GET",
-        headers: {
-            "Authorization": `Bearer ${token}`
-        },
-    });
-    const data = await response.json();
+
+    const response = await axiosInter.get(`${API_URL}/getTasks/${list_id}`)
+
     return {
         status: response.status,
-        data: data
+        data: response.data
     }
-
+    
 }

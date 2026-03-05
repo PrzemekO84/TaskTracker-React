@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { jwtDecode } from "jwt-decode"
 
 type User = {
   username: string,
@@ -11,8 +12,6 @@ type UserContextType = {
     logoutUser: () => void;
 }
 
-
-
 const userContext = createContext<UserContextType | undefined>(undefined);
 
 export function UserContextProvider({children} : {children: React.ReactNode}){
@@ -24,6 +23,21 @@ export function UserContextProvider({children} : {children: React.ReactNode}){
     useEffect(() => {
         const token = localStorage.getItem("token");
         const username = localStorage.getItem("username");
+        if(token){
+            try {
+                const decodedToken = jwtDecode(token); 
+                const currentTime = Date.now()/1000
+                if(decodedToken.exp! < currentTime){
+                    logoutUser();
+                }
+            } catch (error) {
+                console.log(error);
+                logoutUser();
+            }
+        }
+        else{
+            logoutUser();
+        }
         if(token && username){
             setUser({
                 username: username,

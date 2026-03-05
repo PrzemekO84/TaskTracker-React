@@ -17,7 +17,9 @@ import { startingMonthlyData } from "@/utils/startingData";
 
 type ListTaskContextType = {
     listInfo: List[],
+    getAllLists: () => void;
     taskInfo: Task[],
+    updateDashboardData: () => void;
     taskDashboardData: AllTaskData
     // addListItem: (list: List) => void,
     // editListItem: (updateItem: List, listId: string) => void,
@@ -50,48 +52,33 @@ export const ListTaskProvider = ({ children } : {children: React.ReactNode}) => 
 
     const { user } = useUserContext();
 
-    useEffect(() => {
+    async function getAllLists(){
+      try {
+        const result = await getLists();
+      const data = result.data.data;
 
-      console.log("O TEJ PORZE KAZDY WYPIC MOZE");
-
-      const fetchedLists = async () => {
-        try {
-          const result = await getLists();
-          if(result.status === 201){
-            setListInfo(result.data)  
-          }
-        } catch (error) {
-          console.log("Error during getting the lists");
-          console.log(error);
-        }
+      setListInfo(data)
+      } catch (error) {
+        console.log("Error during getting lists");
+        console.log(error);
       }
+    }
 
-      const fetchedDashboard = async () => {
-        try {
-          const result = await allTaskData();
-          console.log("UgBuga");
-          console.log(result);
-          setTaskDashboardData(result)
-        } catch (error) {
-          console.log("Error druing getting the tasks");
-          console.log(error);
-        }
-      }
-
-      if(user.token){
-        fetchedLists();
-        fetchedDashboard();
+    async function updateDashboardData(){
+      try {
+        const result = await allTaskData();
+        setTaskDashboardData(result);
+      } catch (error) {
+        console.log("Error during updating the dashboard data.");
+        console.log(error);
       }
       
-    }, [user.token]);
+    }
 
     async function allTaskData() {
 
       const result = await getAllTaskData();
       const data = result.data.data;
-
-      console.log("JOL JOL");
-      console.log(data);
 
       let undoneTaskPriorityCounter: TasksCounter = {
         criticalTasks: 0,
@@ -337,7 +324,7 @@ export const ListTaskProvider = ({ children } : {children: React.ReactNode}) => 
 
 
     return (
-        <ListTaskContext.Provider value={{listInfo, taskInfo, taskDashboardData}}>
+        <ListTaskContext.Provider value={{listInfo, getAllLists, taskInfo, updateDashboardData, taskDashboardData}}>
             {children}
         </ListTaskContext.Provider>
     )

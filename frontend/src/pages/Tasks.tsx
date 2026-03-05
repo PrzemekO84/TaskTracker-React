@@ -11,15 +11,17 @@ import { sortCreatedList, sortDeadlineList, sortPriorityList } from "@/utils/Sor
 
 function Tasks(){
     const [createListWindow, setCreateListWindow] = useState(false);
-    const { listInfo } = useListTaskContext();
+    const { listInfo, getAllLists } = useListTaskContext();
     const { listId } = useParams<string>();
     const [sortType, setSortType] = useState<SortType>("default");
+
+    useEffect(() => {
+      getAllLists();
+    }, [])
 
     function handleCreateWindow(){
         setCreateListWindow(!createListWindow);
     }
-
-    //const currentList = listInfo.find(list => list.id === listId);
 
     const sortedData = useMemo(() => {
       switch(sortType){
@@ -76,7 +78,7 @@ function Tasks(){
         <div className="border-2 border-stone-800 rounded-md p-3 w-[70%] grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-5 auto-rows-[350px]">
           {sortedData.map((list) => {
             return (
-              <Link key={list.id} to={`/DirectTasks/${list.id}`}>
+              <Link key={list.list_id} to={`/DirectTasks/${list.list_id}`}>
                 <ListBox
                   name={list.name}
                   priority={list.priority}
@@ -98,3 +100,7 @@ function Tasks(){
 }
 
 export default Tasks;
+
+//TODO
+// w liscie byla dlugos taskow moze warto dodac to do bazy danych
+//no ogolnie praca nad wyswietlaniem taskow w zakladce tasks.

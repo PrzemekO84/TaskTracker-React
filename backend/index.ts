@@ -96,7 +96,6 @@ app.get("/api/getLists", auth, async (req: Request, res: Response) => {
     const user_id = (req as any).user.user_id;
     try {
         const result = await getLists(user_id);
-        console.log(result);
         res.status(201).json({
             message: "Succesfully fetched lists data.",
             data: result

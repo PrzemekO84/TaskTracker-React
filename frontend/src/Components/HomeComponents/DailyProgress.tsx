@@ -11,6 +11,8 @@ function DailyProgress(){
   const { taskDashboardData } = useListTaskContext();
   const dailyCount = taskDashboardData.dailyTaskData
 
+  console.log("Co ty drukujesz?");
+
   console.log(dailyCount);
 
     return (

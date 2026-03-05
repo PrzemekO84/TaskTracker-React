@@ -5,7 +5,8 @@ import { useListTaskContext } from "@/context/ListTaskContext";
 export function ProgressWithLabel() {
   const max = 5;
 
-  const { dailyCount } = useListTaskContext();
+  const { taskDashboardData } = useListTaskContext();
+  const dailyCount = taskDashboardData.dailyTaskData
 
   return (
     <Field className="w-full max-w-sm">
