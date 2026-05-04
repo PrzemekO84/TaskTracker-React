@@ -4,7 +4,6 @@ import DatePicker from "../ui/DatePicker";
 import DropDownMenuList from "../ui/DropDownMenuList";
 import { useListTaskContext } from "@/context/ListTaskContext";
 import TimePicker from "../ui/TimePicker";
-import { createdDateFormat } from "@/utils/HelpFun";
 import { useNavigate, useParams } from "react-router-dom";
 
 type PropsElements = {
@@ -20,7 +19,7 @@ function CreateListWindow({onClose, type, initialData} : PropsElements) {
   const [dayDeadline, setDayDeadline] = useState<Date | undefined>(undefined);
   const [timeDeadline, setTimeDeadline] = useState<Date | undefined>(undefined);
   const createdDate = new Date().toDateString();
-  const { addListItem, editListItem } = useListTaskContext();
+  // const { addListItem, editListItem } = useListTaskContext();
   const { listId }  = useParams<{listId: string}>();
   const navigate = useNavigate();
 
@@ -64,14 +63,14 @@ function CreateListWindow({onClose, type, initialData} : PropsElements) {
       created: type === "new" ? createdDate : (initialData!.created || ""),
       until: finalDay(),
       time: finalTime(),
-      tasks: type === "new" ? [] :  (initialData!.tasks || []),
+      // tasks: type === "new" ? [] :  (initialData!.tasks || []),
     }
     if (type === "new") {
-      addListItem(listItem)
+      // addListItem(listItem)
     }
     else if (type === "edit") {
       if (listId) {
-        editListItem(listItem, listId)
+        // editListItem(listItem, listId)
       }
     }
   }

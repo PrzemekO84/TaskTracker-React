@@ -81,7 +81,6 @@ export async function addList(list: List){
         data: response.data
     }
     
-   
 }
 
 export async function getAllTaskData(){

@@ -51,6 +51,17 @@ function Tasks(){
       }
     }, [createListWindow]);
 
+    const list = listInfo;
+    list.forEach(element => {
+      console.log("Created " + element.created);
+      console.log("List id " + element.list_id);
+      console.log("Name " + element.name);
+      console.log("Priority " + element.priority);
+      console.log("Time" + element.time);
+      console.log("Until" + element.until);
+      console.log("UserID" + element.user_id);
+    });
+
     return (
       <div className="w-screen m-5 flex">
         <div className="border-2 border-stone-800 rounded-md p-2 w-[30%] flex flex-col">
@@ -68,7 +79,7 @@ function Tasks(){
           <div className="h-full flex flex-col items-center gap-4">
             {sortedData.map((list) => {
               return (
-                <Link key={list.id} to={`/DirectTasks/${list.id}`} className="w-full">
+                <Link key={list.list_id} to={`/DirectTasks/${list.list_id}`} className="w-full">
                   <ListName title={list.name} />
                 </Link>
               );
@@ -85,7 +96,7 @@ function Tasks(){
                   created={list.created}
                   until={list.until}
                   time={list.time}
-                  tasksLength={list.tasks.length}
+                  tasksLength={0}
                 />
               </Link>
             );
@@ -102,5 +113,4 @@ function Tasks(){
 export default Tasks;
 
 //TODO
-// w liscie byla dlugos taskow moze warto dodac to do bazy danych
-//no ogolnie praca nad wyswietlaniem taskow w zakladce tasks.
+//Trzeba popracowac nad wyswietlaniem list z pelna lista informacji ale listy sie juz wysiwetlaja

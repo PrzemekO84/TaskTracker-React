@@ -19,9 +19,9 @@ function ListBox({name, priority, created, until, time, tasksLength} : PropsElem
             <p className="text-3xl border-b-5 w-full h-auto p-2 rounded-md border-purple-950 ">{toUpperCase(name)}</p>
             <p className={`${priorityColor(priority)}`}>Priority: {priority}</p>
             <p>Tasks: {tasksLength}</p>
-            <p>Day deadline: {until === "None" ? until : dayDeadlineFormat(until)}</p>
-            <p>Time deadline: {time === "None" ? time : time.slice(0, 5)}</p>
-            <p>Created: {dayDeadlineFormat(created)}</p>
+            <p>Day deadline: {until === null ? "None" : dayDeadlineFormat(until)}</p>
+            <p>Time deadline: {time === null ? "None" : time.slice(0, 5)}</p>
+            <p>{created === null ? "None" : created}</p>
         </div>
     )
 }
