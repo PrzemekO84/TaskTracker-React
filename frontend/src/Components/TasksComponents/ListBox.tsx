@@ -8,10 +8,13 @@ type PropsElements = {
     created: string;
     until: string;
     time: string;
-    tasksLength: number;
+    tasksLength: string;
 };
 
+
 function ListBox({name, priority, created, until, time, tasksLength} : PropsElements){
+
+    console.log(tasksLength);
 
     return (
         <div className="flex flex-col gap-5 justify-between 

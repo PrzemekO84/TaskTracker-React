@@ -17,6 +17,7 @@ export type List = {
   created: string;
   until: string;
   time: string;
+  tasks_count: string;
 };
 
 export type RenderedTask = {

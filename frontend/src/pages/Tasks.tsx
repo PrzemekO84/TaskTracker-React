@@ -52,14 +52,8 @@ function Tasks(){
     }, [createListWindow]);
 
     const list = listInfo;
-    list.forEach(element => {
-      console.log("Created " + element.created);
-      console.log("List id " + element.list_id);
-      console.log("Name " + element.name);
-      console.log("Priority " + element.priority);
-      console.log("Time" + element.time);
-      console.log("Until" + element.until);
-      console.log("UserID" + element.user_id);
+    list.forEach(list => {
+      console.log(list.tasks_count);
     });
 
     return (
@@ -96,7 +90,7 @@ function Tasks(){
                   created={list.created}
                   until={list.until}
                   time={list.time}
-                  tasksLength={0}
+                  tasksLength={list.tasks_count}
                 />
               </Link>
             );

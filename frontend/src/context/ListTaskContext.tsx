@@ -56,6 +56,8 @@ export const ListTaskProvider = ({ children } : {children: React.ReactNode}) => 
       try {
         const result = await getLists();
         const data = result.data.data;
+        console.log("DATA");
+        console.log(data);
 
       setListInfo(data)
       } catch (error) {
