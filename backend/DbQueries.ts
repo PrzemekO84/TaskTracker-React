@@ -95,13 +95,12 @@ export const findUser = async (email_username: string) => {
 export const getLists = async (user_id: string) => {
     const result = await db.query(`
         SELECT lists.*,
-        COUNT(tasks.task_id) AS tasksLength
+        COUNT(tasks.task_id) AS tasks_count
         FROM lists
-        LEFT JOIN tasks
-        ON lists.list_id = tasks.list_id
+        LEFT JOIN tasks ON tasks.list_id = lists.list_id
         WHERE lists.user_id = $1
-        GROUP BY lists.list_id`,
-    [user_id]);
+        GROUP BY lists.list_id
+        `, [user_id])
 
     return result.rows;
 };

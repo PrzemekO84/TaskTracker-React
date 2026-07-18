@@ -21,20 +21,20 @@ function Name() {
           <>
             <h1 className="text-6xl font-semibold text-center mt-15">
               Welcome to the{" "}
-              <span className="text-purple-700 font-bold text-shadow-md text-shadow-purple-500/50 dark:text-shadow-purple-500/60">
+              <span className="text-purple-700 font-bold">
                 Task Voyager
               </span>
             </h1>
             <h2 className="text-4xl font-semibold text-center">
               Your own{" "}
-              <span className="text-purple-700 font-bold text-4xl text-shadow-md text-shadow-purple-500/50 dark:text-shadow-purple-500/50">
+              <span className="text-purple-700 font-bold text-4xl">
                 private manager
               </span>{" "}
               to help you track your tasks
             </h2>
             <h3 className="text-3xl font-semibold text-center">
               Please start by creating your{" "}
-              <span className="text-purple-700 font-bold text-4xl text-shadow-md text-shadow-purple-500/50 dark:text-shadow-purple-500/50">
+              <span className="text-purple-700 font-bold text-4xl">
                 account
               </span>
             </h3>

@@ -6,7 +6,7 @@ import TaskWindow from "./TaksWindow";
 import { useState } from "react";
 import { Check } from "lucide-react";
 import { priorityColor } from "@/utils/HelpFun";
-import { createdDateFormat, dayDeadlineFormat } from "@/utils/HelpFun";
+import { dayDeadlineFormat } from "@/utils/HelpFun";
 
 
 function SingleTask({

@@ -18,18 +18,10 @@ export const priorityColor = (priority: Priority) => {
     }
 }
 
-export const createdDateFormat = () => {
-    const date = new Date();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    const day = date.getDate();
-    const createdDate = day.toString().padStart(2, "0") + "." + month.toString().padStart(2, "0") + "." + year;
-    return createdDate;
-}
 
 export const dayDeadlineFormat = (date: string) => {
 
-    if(date === "None"){
+    if(date === null){
         return "None"
     }
 
