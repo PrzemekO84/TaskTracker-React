@@ -344,3 +344,8 @@ export function useListTaskContext(){
 //         deleteTaskItem, getTotalTasksLength, setMonthlyCounter,
 //         getTasksLengthByPriority, setDailyCounter, dailyCount, monthlyCount, getTotalCompletedTaskLength,
 //         updateTaskByPriorityCounter, taskByPriorityCounter
+
+
+
+
+//Trzeba pobrac akutalne list_id czy tam list_id + 1 i to wrzucic do CreateList 
