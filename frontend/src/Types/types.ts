@@ -10,13 +10,12 @@ export type Task = {
 };
 
 export type List = {
-  list_id: string;
-  user_id: string;
-  name: string;
-  priority: Priority; 
-  created: string;
-  until: string;
-  time: string;
+  list_id: string,
+  name: string,
+  priority: Priority,
+  created_at: string,
+  until: string | null,
+  time: string |null
 };
 
 export type RenderedTask = {

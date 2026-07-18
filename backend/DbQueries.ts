@@ -93,14 +93,22 @@ export const findUser = async (email_username: string) => {
 }
 
 export const getLists = async (user_id: string) => {
-    const result = await db.query("SELECT * from lists WHERE user_id = $1",
-        [user_id]
-    )
+    const result = await db.query(`
+        SELECT lists.*,
+        COUNT(tasks.task_id) AS tasksLength
+        FROM lists
+        LEFT JOIN tasks
+        ON lists.list_id = tasks.list_id
+        WHERE lists.user_id = $1
+        GROUP BY lists.list_id`,
+    [user_id]);
 
     return result.rows;
-}
+};
  
 export const addList = async (list: List, user_id: string) => {
+    console.log(list.name);
+    console.log("Lista przy dbquieries");
     await db.query("INSERT INTO lists (list_id, user_id, name, priority, created_at, until, time) VALUES ($1, $2, $3, $4, $5, $6, $7)",
         [list.list_id, user_id, list.name, list.priority, list.created_at, list.until, list.time]
     )

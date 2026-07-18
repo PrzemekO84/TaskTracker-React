@@ -3,6 +3,7 @@ import { jwtDecode } from "jwt-decode"
 
 type User = {
   username: string,
+  user_id: string,
   token: string
 }
 
@@ -17,12 +18,14 @@ const userContext = createContext<UserContextType | undefined>(undefined);
 export function UserContextProvider({children} : {children: React.ReactNode}){
     const [user, setUser] = useState<User>({
         username: "",
+        user_id: "",
         token: ""
     })
 
     useEffect(() => {
         const token = localStorage.getItem("token");
         const username = localStorage.getItem("username");
+        const user_id = localStorage.getItem("user_id");
         if(token){
             try {
                 const decodedToken = jwtDecode(token); 
@@ -38,9 +41,10 @@ export function UserContextProvider({children} : {children: React.ReactNode}){
         else{
             logoutUser();
         }
-        if(token && username){
+        if(token && username && user_id){
             setUser({
                 username: username,
+                user_id: user_id,
                 token: token
             })
         }
@@ -49,6 +53,7 @@ export function UserContextProvider({children} : {children: React.ReactNode}){
     const loginUser = (user: User) => {
         setUser({
             username: user.username,
+            user_id: user.user_id,
             token: user.token
         })
     }
@@ -56,8 +61,10 @@ export function UserContextProvider({children} : {children: React.ReactNode}){
     const logoutUser = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("username");
+        localStorage.removeItem("user_id");
         setUser({
             username: "",
+            user_id: "",
             token: ""
         })
     }

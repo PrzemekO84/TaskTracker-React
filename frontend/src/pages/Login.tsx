@@ -38,9 +38,10 @@ function Login(){
           })
         }
         else if(result.status === 201){
-          loginUser({username: result.data.username, token: result.data.token})
+          loginUser({username: result.data.username, user_id: result.data.user_id, token: result.data.token})
           localStorage.setItem("token", result.data.token);
           localStorage.setItem("username", result.data.username);
+          localStorage.setItem("user_id", result.data.user_id);
           setErrorMessage({
             isError: true,
             message: result.data.message,

@@ -6,6 +6,8 @@ import { useListTaskContext } from "@/context/ListTaskContext";
 import TimePicker from "../ui/TimePicker";
 import { createdDateFormat } from "@/utils/HelpFun";
 import { useNavigate, useParams } from "react-router-dom";
+import { addList, editList } from "@/Services/ApiService";
+import { useUserContext } from "@/context/UserContext";
 
 type PropsElements = {
   onClose: () => void;
@@ -20,7 +22,8 @@ function CreateListWindow({onClose, type, initialData} : PropsElements) {
   const [dayDeadline, setDayDeadline] = useState<Date | undefined>(undefined);
   const [timeDeadline, setTimeDeadline] = useState<Date | undefined>(undefined);
   const createdDate = new Date().toDateString();
-  const { addListItem, editListItem } = useListTaskContext();
+  //const { addListItem, editListItem } = useListTaskContext();
+  const { user }  = useUserContext();
   const { listId }  = useParams<{listId: string}>();
   const navigate = useNavigate();
 
@@ -28,10 +31,10 @@ function CreateListWindow({onClose, type, initialData} : PropsElements) {
       if(type === "edit" && initialData){
         setListName(initialData.name)
         setSelectedPriority(initialData.priority)
-        if(initialData.until !=="None"){
+        if(initialData.until !==null){
           setDayDeadline(new Date(initialData.until))
         }
-        if(initialData.time !== "None"){
+        if(initialData.time !== null){
           const [ hours, minutes ] = initialData.time.split(":").map(Number);
           const newHour = new Date()
           newHour.setHours(hours, minutes, 0, 0);
@@ -40,40 +43,40 @@ function CreateListWindow({onClose, type, initialData} : PropsElements) {
       }
     }, [type, initialData]);
 
-    console.log(dayDeadline?.toDateString());
-
   function handleSelectPriority(priority: Priority) {
     setSelectedPriority(priority);
   }
 
   function finalDay() {
-    if (!dayDeadline) return "None";
+    if (!dayDeadline) return null;
     return dayDeadline.toDateString();
   }
 
   function finalTime() {
-    if (!timeDeadline) return "None";
-    return timeDeadline.toTimeString();
+    if (!timeDeadline) return null;
+    return timeDeadline.toTimeString().slice(0, 8);
   }
 
   function handleSubmit() {
     const listItem = {
-      id: type === "new" ? crypto.randomUUID() : (initialData!.id || ""),
+      list_id: type === "new" ? "6" : (initialData!.list_id || ""),
       name: listName,
       priority: selectedPriority,
-      created: type === "new" ? createdDate : (initialData!.created || ""),
+      created_at: type === "new" ? createdDate : (initialData!.created_at || ""),
       until: finalDay(),
       time: finalTime(),
-      tasks: type === "new" ? [] :  (initialData!.tasks || []),
+      tasksLength: "0",
     }
     if (type === "new") {
-      addListItem(listItem)
+      addList(listItem);
     }
     else if (type === "edit") {
       if (listId) {
-        editListItem(listItem, listId)
+        editList(listItem, listId)
       }
     }
+
+    console.log(listItem);
   }
 
 

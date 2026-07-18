@@ -1,10 +1,8 @@
-import { Button } from "./Components/ui/button";
 import { Switch } from "./Components/ui/switch";
 import { Link } from "react-router-dom";
 import { Moon } from "lucide-react";
 import { Sun } from "lucide-react";
 import { CircleGauge } from "lucide-react";
-import { Menu } from "lucide-react";
 import { HamburgerMenu } from "./pages/HamburgerMenu";
 import { useThemeContext } from "./context/ThemeContext";
 import { useUserContext } from "./context/UserContext";

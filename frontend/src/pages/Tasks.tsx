@@ -17,7 +17,7 @@ function Tasks(){
 
     useEffect(() => {
       getAllLists();
-    }, [])
+    }, []);
 
     function handleCreateWindow(){
         setCreateListWindow(!createListWindow);
@@ -68,7 +68,7 @@ function Tasks(){
           <div className="h-full flex flex-col items-center gap-4">
             {sortedData.map((list) => {
               return (
-                <Link key={list.id} to={`/DirectTasks/${list.id}`} className="w-full">
+                <Link key={list.list_id} to={`/DirectTasks/${list.list_id}`} className="w-full">
                   <ListName title={list.name} />
                 </Link>
               );
@@ -85,7 +85,7 @@ function Tasks(){
                   created={list.created}
                   until={list.until}
                   time={list.time}
-                  tasksLength={list.tasks.length}
+                  tasksLength={list.tasksLength}
                 />
               </Link>
             );
@@ -103,4 +103,4 @@ export default Tasks;
 
 //TODO
 // w liscie byla dlugos taskow moze warto dodac to do bazy danych
-//no ogolnie praca nad wyswietlaniem taskow w zakladce tasks.
+// no ogolnie praca nad wyswietlaniem taskow w zakladce tasks.

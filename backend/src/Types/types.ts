@@ -36,3 +36,7 @@ export type tasksData = {
   count: number, 
   priority: Priority
 }
+
+export type AddListRequest = {
+  list: List
+}

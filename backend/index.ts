@@ -3,7 +3,7 @@ import cors from "cors"
 import dotenv from "dotenv";
 import { db } from "./Db";
 import { createTables } from "./DbQueries";
-import type { LoginUser, RegisterUser, List, Task } from "./src/Types/types";
+import type { LoginUser, RegisterUser, List, Task, AddListRequest } from "./src/Types/types";
 import { hashPassword, comparePasswords } from "./src/utils/funcs";
 import { saveUserToDb, findUser, getLists, addList, getTasks, getAllTaskData } from "./DbQueries";
 import jwt from "jsonwebtoken"
@@ -78,7 +78,8 @@ app.post("/api/login", async (req:Request<{}, {}, LoginUser>, res: Response) => 
             res.status(201).json({
                 message: "Successfully loged in.",
                 token: token,
-                username: user.username
+                username: user.username,
+                user_id: user.user_id.toString()
             })
         }
         else{
@@ -109,11 +110,14 @@ app.get("/api/getLists", auth, async (req: Request, res: Response) => {
     }
 });
 
-app.post("/api/addList", auth, async (req: Request<{}, {}, List>, res: Response) => {
+
+app.post("/api/addList", auth, async (req: Request<{}, {}, AddListRequest>, res: Response) => {
     try {
-        const { list_id, name, priority, created_at, until, time } = req.body;
+        const { list } = req.body;
+        console.log("Test req body");
+        console.log(req.body);
         const user_id = (req as any).user.user_id;
-        await addList({list_id, name, priority, created_at, until, time}, user_id);
+        await addList(list, user_id);
         res.status(201).json({
             message: "Succesfully added new List"
         })
