@@ -15,7 +15,8 @@ export type List = {
   priority: Priority,
   created_at: string,
   until: string | null,
-  time: string |null
+  time: string |null,
+  tasksLength: string
 };
 
 export type RenderedTask = {

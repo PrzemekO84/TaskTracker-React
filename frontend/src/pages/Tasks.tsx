@@ -51,11 +51,6 @@ function Tasks(){
       }
     }, [createListWindow]);
 
-    const list = listInfo;
-    list.forEach(list => {
-      console.log(list.tasks_count);
-    });
-
     return (
       <div className="w-screen m-5 flex">
         <div className="border-2 border-stone-800 rounded-md p-2 w-[30%] flex flex-col">
@@ -87,7 +82,7 @@ function Tasks(){
                 <ListBox
                   name={list.name}
                   priority={list.priority}
-                  created={list.created}
+                  created={list.created_at}
                   until={list.until}
                   time={list.time}
                   tasksLength={list.tasksLength}

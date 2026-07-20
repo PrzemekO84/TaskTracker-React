@@ -16,15 +16,21 @@ type PropsElements = {
 
 function CreateListWindow({onClose, type, initialData} : PropsElements) {
 
+  const listInfo = useListTaskContext();
+  const listInfoLength = listInfo.listInfo.length;
+  let listId: string;
+  if(listInfoLength === 0){
+    listId = "1";
+  }
+  else{
+    listId = listInfo.listInfo[listInfoLength - 1].list_id;
+    listId += 1;
+  }
   const [listName, setListName] = useState<string>("");
   const [selectedPriority, setSelectedPriority] = useState<Priority>("Low");
   const [dayDeadline, setDayDeadline] = useState<Date | undefined>(undefined);
   const [timeDeadline, setTimeDeadline] = useState<Date | undefined>(undefined);
   const createdDate = new Date().toDateString();
-  //const { addListItem, editListItem } = useListTaskContext();
-  const { user }  = useUserContext();
-  const { listId }  = useParams<{listId: string}>();
-  const navigate = useNavigate();
 
   useEffect(() => {
       if(type === "edit" && initialData){
@@ -58,7 +64,7 @@ function CreateListWindow({onClose, type, initialData} : PropsElements) {
 
   function handleSubmit() {
     const listItem = {
-      list_id: type === "new" ? "6" : (initialData!.list_id || ""),
+      list_id: type === "new" ? listId : (initialData!.list_id || ""),
       name: listName,
       priority: selectedPriority,
       created_at: type === "new" ? createdDate : (initialData!.created_at || ""),
@@ -74,8 +80,6 @@ function CreateListWindow({onClose, type, initialData} : PropsElements) {
         editList(listItem, listId)
       }
     }
-
-    console.log(listItem);
   }
 
 
@@ -153,3 +157,6 @@ function CreateListWindow({onClose, type, initialData} : PropsElements) {
 }
 
 export default CreateListWindow;
+
+// Praktycznie caly layout list jest dodany oporcz tasksLength w sumie dodwawanei dziala chyba calkiem dobrze
+//Wszystkie dane trafiaja prawidlowo do bazy danych trzeba rowniez dodac odswiezanie strony po dodaniu taska.
