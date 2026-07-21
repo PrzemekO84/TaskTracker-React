@@ -16,14 +16,14 @@ type PropsElements = {
 
 function CreateListWindow({onClose, type, initialData} : PropsElements) {
 
-  const listInfo = useListTaskContext();
-  const listInfoLength = listInfo.listInfo.length;
+  const { listInfo } = useListTaskContext();
+  const listInfoLength = listInfo.length;
   let listId: string;
   if(listInfoLength === 0){
     listId = "1";
   }
   else{
-    listId = listInfo.listInfo[listInfoLength - 1].list_id;
+    listId = listInfo[listInfoLength - 1].list_id;
     listId += 1;
   }
   const [listName, setListName] = useState<string>("");
@@ -70,7 +70,7 @@ function CreateListWindow({onClose, type, initialData} : PropsElements) {
       created_at: type === "new" ? createdDate : (initialData!.created_at || ""),
       until: finalDay(),
       time: finalTime(),
-      tasksLength: "0",
+      tasks_count: "0",
     }
     if (type === "new") {
       addList(listItem);

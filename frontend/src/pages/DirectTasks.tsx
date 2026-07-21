@@ -12,7 +12,7 @@ import { sortCreatedTasks, sortDeadlineTasks, sortPriorityTasks } from "@/utils/
 
 function DirectTasks() {
     const { listId } = useParams<{listId : string}>();
-    const { listInfo, deleteListItem } = useListTaskContext();
+    const { listInfo } = useListTaskContext();
     const [newTaskWindow, setNewTaskWindow] = useState(false);
     const [editListWindow, setEditListWindow] = useState(false);
     const [sortType, setSortType] = useState<SortType>("default");
@@ -21,7 +21,7 @@ function DirectTasks() {
     const handleNewTaskWindow = () => setNewTaskWindow(!newTaskWindow);
     const handleEditTaskWindow = () => setEditListWindow(!editListWindow);
 
-    const currentList = listInfo.find(list => list.id === listId);
+    const currentList = listInfo.find(list => list.list_id == listId);
 
     if(!currentList){
         return <NotFound />
@@ -143,3 +143,6 @@ function DirectTasks() {
 }
 
 export default DirectTasks;
+
+//no tutaj trzeba by zrobic osobna funckje w listTaksContext zeby sciagac informacje na temat taskow (moze nawet osobny context?) ale trzeba to laczyc z id listy z tym chyba nie powinno byc problemu bo bazda danych jest git polaczona
+//no i ogolnie teraz do roboty zostala glownie lista taskow 

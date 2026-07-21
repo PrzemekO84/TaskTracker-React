@@ -27,10 +27,14 @@ function Login(){
   
       try {
         const result = await loginUserApi(loginCredentials);
-
-        console.log(result);
   
         if(result.status === 500 || result.status === 400){
+          setloginCredentials(prevValues => {
+            return {
+              ...prevValues,
+              password: ""
+            }
+          })
           setErrorMessage({
             isError: true,
             message: result.data.error,

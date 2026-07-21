@@ -14,7 +14,7 @@ type PropsElements = {
 };
 
 function TaskWindow({ onClose, listId, type, initialData }: PropsElements) {
-  const { addTaskItem, editTaskItem } = useListTaskContext();
+  // const { addTaskItem, editTaskItem } = useListTaskContext();
   const [taskName, setTaskName] = useState<string>("");
   const [selectedPriority, setSelectedPriority] = useState<Priority>("Low");
   const [dayDeadline, setDayDeadline] = useState<Date | undefined>(undefined);
@@ -60,9 +60,9 @@ function TaskWindow({ onClose, listId, type, initialData }: PropsElements) {
       completed: false,
     };
     if (type === "new") {
-      addTaskItem(listId, TaskItem);
+      // addTaskItem(listId, TaskItem);
     } else {
-      editTaskItem(listId, initialData!.id, TaskItem);
+      // editTaskItem(listId, initialData!.id, TaskItem);
     }
   }
 

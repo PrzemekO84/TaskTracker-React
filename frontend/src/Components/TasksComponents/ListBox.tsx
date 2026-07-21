@@ -6,13 +6,13 @@ type PropsElements = {
     name: string;
     priority: Priority;
     created: string;
-    until: Date | null;
+    until: string | null;
     time: string | null;
-    tasksLength: string;
+    tasks_count: string;
 };
 
 
-function ListBox({name, priority, created, until, time, tasksLength} : PropsElements){
+function ListBox({name, priority, created, until, time, tasks_count} : PropsElements){
 
     let dayDeadline;
     if(until !== null){
@@ -24,7 +24,7 @@ function ListBox({name, priority, created, until, time, tasksLength} : PropsElem
         border-3 text-xl rounded-lg p-4 items-center text-center cursor-pointer divBorderHover">
             <p className="text-3xl border-b-5 w-full h-auto p-2 rounded-md border-purple-950 ">{toUpperCase(name)}</p>
             <p className={`${priorityColor(priority)}`}>Priority: {priority}</p>
-            <p>Tasks: {tasksLength}</p>
+            <p>Tasks: {tasks_count}</p>
             <p>Day deadline: {until === null ? "None" : dayDeadline}</p>
             <p>Time deadline: {time === null ? "None" : time.slice(0, 5)}</p>
             <p>Created: {created.slice(0, 10).replaceAll("-", ".")}</p>

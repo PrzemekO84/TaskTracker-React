@@ -85,7 +85,7 @@ function Tasks(){
                   created={list.created_at}
                   until={list.until}
                   time={list.time}
-                  tasksLength={list.tasksLength}
+                  tasks_count={list.tasks_count}
                 />
               </Link>
             );
@@ -100,7 +100,3 @@ function Tasks(){
 }
 
 export default Tasks;
-
-//TODO
-// w liscie byla dlugos taskow moze warto dodac to do bazy danych
-// no ogolnie praca nad wyswietlaniem taskow w zakladce tasks.

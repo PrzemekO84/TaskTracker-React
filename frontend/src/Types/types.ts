@@ -16,7 +16,7 @@ export type List = {
   created_at: string,
   until: string | null,
   time: string |null,
-  tasksLength: string
+  tasks_count: string
 };
 
 export type RenderedTask = {
